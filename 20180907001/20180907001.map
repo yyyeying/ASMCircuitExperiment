@@ -1,0 +1,160 @@
+MPLINK 4.49, Linker
+Linker Map File - Created Sat Sep 15 14:32:48 2018
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x00043c
+                   .cinit    romdata   0x00021e    program   0x000004
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x00021f      
+            544 out of 8454 program addresses used, program memory utilization is 6%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                     con0   0x0001bb    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                     con1   0x0001bd    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                    con10   0x0001fd    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                    con11   0x0001ff    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                    con12   0x000207    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                     con2   0x0001d4    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                     con9   0x0001fb    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                  convert   0x0000f5    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                  dec_one   0x0001c3    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                 dec_one5   0x000215    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+              dec_one_pre   0x0001c0    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+             dec_one_pre2   0x0001d7    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+             dec_one_pre5   0x000212    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+               dec_point5   0x00020f    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+           dec_point_pre5   0x00020c    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                  dec_ten   0x0001c9    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                 dec_ten5   0x00021b    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+              dec_ten_pre   0x0001c6    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+             dec_ten_pre5   0x000218    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                    delay   0x00010e    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                 delay100   0x000117    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                delay1000   0x000122    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                delay15us   0x00012d    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                delay30us   0x000132    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                delay45us   0x000137    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+               delay500us   0x000141    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                delay70us   0x00013c    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+               delay750us   0x00014a    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                  ds_read   0x000193    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+             ds_read_loop   0x000196    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                 ds_reset   0x000165    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+            ds_reset_loop   0x000167    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                 ds_write   0x00017d    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+            ds_write_loop   0x000183    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+               four_space   0x0001da    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                 get_temp   0x000153    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                 humd_con   0x0000b3    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                 humd_get   0x0001e3    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                      inc   0x0001b8    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                     inc2   0x0001d1    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                     inc4   0x0001f7    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+              lcd_display   0x000108    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+               lcd_enable   0x000101    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                    loop0   0x000110    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                    loop1   0x000112    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                    loop2   0x00012f    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                    loop3   0x00013e    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                    loop4   0x000143    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                    loop5   0x00014c    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                    loop6   0x00014e    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                    loop7   0x000134    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                    loop8   0x000139    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                    loop9   0x000145    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+            loop_humd_get   0x0001e3    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+           loop_humd_wait   0x0001e7    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                     main   0x000000    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                nhumd_bcd   0x0001f1    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                    start   0x000052    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                    table   0x0000f6    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                 temp_bcd   0x0001b1    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+               temp_bcd_p   0x0001cc    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                 temp_con   0x00006a    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                temp_conp   0x000086    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                  write_0   0x00018d    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                  write_1   0x00018e    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                     main   0x000000    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                    start   0x000052    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                 temp_con   0x00006a    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                temp_conp   0x000086    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                 humd_con   0x0000b3    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                  convert   0x0000f5    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                    table   0x0000f6    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+               lcd_enable   0x000101    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+              lcd_display   0x000108    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                    delay   0x00010e    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                    loop0   0x000110    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                    loop1   0x000112    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                 delay100   0x000117    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                delay1000   0x000122    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                delay15us   0x00012d    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                    loop2   0x00012f    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                delay30us   0x000132    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                    loop7   0x000134    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                delay45us   0x000137    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                    loop8   0x000139    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                delay70us   0x00013c    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                    loop3   0x00013e    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+               delay500us   0x000141    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                    loop4   0x000143    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                    loop9   0x000145    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+               delay750us   0x00014a    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                    loop5   0x00014c    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                    loop6   0x00014e    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                 get_temp   0x000153    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                 ds_reset   0x000165    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+            ds_reset_loop   0x000167    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                 ds_write   0x00017d    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+            ds_write_loop   0x000183    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                  write_0   0x00018d    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                  write_1   0x00018e    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                  ds_read   0x000193    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+             ds_read_loop   0x000196    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                 temp_bcd   0x0001b1    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                      inc   0x0001b8    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                     con0   0x0001bb    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                     con1   0x0001bd    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+              dec_one_pre   0x0001c0    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                  dec_one   0x0001c3    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+              dec_ten_pre   0x0001c6    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                  dec_ten   0x0001c9    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+               temp_bcd_p   0x0001cc    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                     inc2   0x0001d1    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                     con2   0x0001d4    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+             dec_one_pre2   0x0001d7    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+               four_space   0x0001da    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                 humd_get   0x0001e3    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+            loop_humd_get   0x0001e3    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+           loop_humd_wait   0x0001e7    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                nhumd_bcd   0x0001f1    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                     inc4   0x0001f7    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                     con9   0x0001fb    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                    con10   0x0001fd    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                    con11   0x0001ff    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                    con12   0x000207    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+           dec_point_pre5   0x00020c    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+               dec_point5   0x00020f    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+             dec_one_pre5   0x000212    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                 dec_one5   0x000215    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+             dec_ten_pre5   0x000218    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+                 dec_ten5   0x00021b    program     static C:\myFiles\CircuitExperiment\20180907001\20180907001.asm
+
+

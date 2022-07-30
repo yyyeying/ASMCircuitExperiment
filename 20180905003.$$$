@@ -1,0 +1,289 @@
+ #include<16F877A.h> A    1 :V17
+ //////// Standard Header file for the PIC16F877A device ////////////////  B    1 :I1
+#device PIC16F877A  B    2 :
+#nolist  B    3N:X0
+//////// Program memory: 8192x14  Data RAM: 367  Stack: 8  B    4N:
+//////// I/O: 33   Analog Pins: 8  B    5N:
+//////// Data EEPROM: 256  B    6N:
+//////// C Scratch area: 77   ID Location: 2000  B    7N:
+//////// Fuses: LP,XT,HS,RC,NOWDT,WDT,NOPUT,PUT,PROTECT,DEBUG,NODEBUG  B    8N:
+//////// Fuses: NOPROTECT,NOBROWNOUT,BROWNOUT,LVP,NOLVP,CPD,NOCPD,WRT,NOWRT  B    9N:
+////////   B   10N:
+////////////////////////////////////////////////////////////////// I/O  B   11N:
+// Discrete I/O Functions: SET_TRIS_x(), OUTPUT_x(), INPUT_x(),  B   12N:
+//                         PORT_B_PULLUPS(), INPUT(),  B   13N:
+//                         OUTPUT_LOW(), OUTPUT_HIGH(),  B   14N:
+//                         OUTPUT_FLOAT(), OUTPUT_BIT()  B   15N:
+// Constants used to identify pins in the above are:  B   16N:
+  B   17N:
+#define PIN_A0  40  B   18N:
+#define PIN_A1  41  B   19N:
+#define PIN_A2  42  B   20N:
+#define PIN_A3  43  B   21N:
+#define PIN_A4  44  B   22N:
+#define PIN_A5  45  B   23N:
+  B   24N:
+#define PIN_B0  48  B   25N:
+#define PIN_B1  49  B   26N:
+#define PIN_B2  50  B   27N:
+#define PIN_B3  51  B   28N:
+#define PIN_B4  52  B   29N:
+#define PIN_B5  53  B   30N:
+#define PIN_B6  54  B   31N:
+#define PIN_B7  55  B   32N:
+  B   33N:
+#define PIN_C0  56  B   34N:
+#define PIN_C1  57  B   35N:
+#define PIN_C2  58  B   36N:
+#define PIN_C3  59  B   37N:
+#define PIN_C4  60  B   38N:
+#define PIN_C5  61  B   39N:
+#define PIN_C6  62  B   40N:
+#define PIN_C7  63  B   41N:
+  B   42N:
+#define PIN_D0  64  B   43N:
+#define PIN_D1  65  B   44N:
+#define PIN_D2  66  B   45N:
+#define PIN_D3  67  B   46N:
+#define PIN_D4  68  B   47N:
+#define PIN_D5  69  B   48N:
+#define PIN_D6  70  B   49N:
+#define PIN_D7  71  B   50N:
+  B   51N:
+#define PIN_E0  72  B   52N:
+#define PIN_E1  73  B   53N:
+#define PIN_E2  74  B   54N:
+  B   55N:
+////////////////////////////////////////////////////////////////// Useful defines  B   56N:
+#define FALSE 0  B   57N:
+#define TRUE 1  B   58N:
+  B   59N:
+#define BYTE int  B   60N:
+#define BOOLEAN short int  B   61N:
+  B   62N:
+#define getc getch  B   63N:
+#define fgetc getch  B   64N:
+#define getchar getch  B   65N:
+#define putc putchar  B   66N:
+#define fputc putchar  B   67N:
+#define fgets gets  B   68N:
+#define fputs puts  B   69N:
+  B   70N:
+////////////////////////////////////////////////////////////////// Control  B   71N:
+// Control Functions:  RESET_CPU(), SLEEP(), RESTART_CAUSE()  B   72N:
+// Constants returned from RESTART_CAUSE() are:  B   73N:
+#define WDT_FROM_SLEEP  0       B   74N:
+#define WDT_TIMEOUT     8       B   75N:
+#define MCLR_FROM_SLEEP 16      B   76N:
+#define NORMAL_POWER_UP 24      B   77N:
+  B   78N:
+  B   79N:
+////////////////////////////////////////////////////////////////// Timer 0  B   80N:
+// Timer 0 (AKA RTCC)Functions: SETUP_COUNTERS() or SETUP_TIMER0(),  B   81N:
+//                              SET_TIMER0() or SET_RTCC(),  B   82N:
+//                              GET_TIMER0() or GET_RTCC()  B   83N:
+// Constants used for SETUP_TIMER0() are:  B   84N:
+#define RTCC_INTERNAL   0  B   85N:
+#define RTCC_EXT_L_TO_H 32  B   86N:
+#define RTCC_EXT_H_TO_L 48  B   87N:
+  B   88N:
+#define RTCC_DIV_1      8  B   89N:
+#define RTCC_DIV_2      0  B   90N:
+#define RTCC_DIV_4      1  B   91N:
+#define RTCC_DIV_8      2  B   92N:
+#define RTCC_DIV_16     3  B   93N:
+#define RTCC_DIV_32     4  B   94N:
+#define RTCC_DIV_64     5  B   95N:
+#define RTCC_DIV_128    6  B   96N:
+#define RTCC_DIV_256    7  B   97N:
+  B   98N:
+  B   99N:
+#define RTCC_8_BIT      0       B  100N:
+  B  101N:
+// Constants used for SETUP_COUNTERS() are the above  B  102N:
+// constants for the 1st param and the following for  B  103N:
+// the 2nd param:  B  104N:
+  B  105N:
+////////////////////////////////////////////////////////////////// WDT  B  106N:
+// Watch Dog Timer Functions: SETUP_WDT() or SETUP_COUNTERS() (see above)  B  107N:
+//                            RESTART_WDT()  B  108N:
+//  B  109N:
+#define WDT_18MS        8     B  110N:
+#define WDT_36MS        9     B  111N:
+#define WDT_72MS       10     B  112N:
+#define WDT_144MS      11     B  113N:
+#define WDT_288MS      12     B  114N:
+#define WDT_576MS      13     B  115N:
+#define WDT_1152MS     14     B  116N:
+#define WDT_2304MS     15     B  117N:
+  B  118N:
+////////////////////////////////////////////////////////////////// Timer 1  B  119N:
+// Timer 1 Functions: SETUP_TIMER_1, GET_TIMER1, SET_TIMER1  B  120N:
+// Constants used for SETUP_TIMER_1() are:  B  121N:
+//      (or (via |) together constants from each group)  B  122N:
+#define T1_DISABLED         0  B  123N:
+#define T1_INTERNAL         0x85  B  124N:
+#define T1_EXTERNAL         0x87  B  125N:
+#define T1_EXTERNAL_SYNC    0x83  B  126N:
+  B  127N:
+#define T1_CLK_OUT          8  B  128N:
+  B  129N:
+#define T1_DIV_BY_1         0  B  130N:
+#define T1_DIV_BY_2         0x10  B  131N:
+#define T1_DIV_BY_4         0x20  B  132N:
+#define T1_DIV_BY_8         0x30  B  133N:
+  B  134N:
+////////////////////////////////////////////////////////////////// Timer 2  B  135N:
+// Timer 2 Functions: SETUP_TIMER_2, GET_TIMER2, SET_TIMER2  B  136N:
+// Constants used for SETUP_TIMER_2() are:  B  137N:
+#define T2_DISABLED         0  B  138N:
+#define T2_DIV_BY_1         4  B  139N:
+#define T2_DIV_BY_4         5  B  140N:
+#define T2_DIV_BY_16        6  B  141N:
+  B  142N:
+////////////////////////////////////////////////////////////////// CCP  B  143N:
+// CCP Functions: SETUP_CCPx, SET_PWMx_DUTY  B  144N:
+// CCP Variables: CCP_x, CCP_x_LOW, CCP_x_HIGH  B  145N:
+// Constants used for SETUP_CCPx() are:  B  146N:
+#define CCP_OFF                         0  B  147N:
+#define CCP_CAPTURE_FE                  4  B  148N:
+#define CCP_CAPTURE_RE                  5  B  149N:
+#define CCP_CAPTURE_DIV_4               6  B  150N:
+#define CCP_CAPTURE_DIV_16              7  B  151N:
+#define CCP_COMPARE_SET_ON_MATCH        8  B  152N:
+#define CCP_COMPARE_CLR_ON_MATCH        9  B  153N:
+#define CCP_COMPARE_INT                 0xA  B  154N:
+#define CCP_COMPARE_RESET_TIMER         0xB  B  155N:
+#define CCP_PWM                         0xC  B  156N:
+#define CCP_PWM_PLUS_1                  0x1c  B  157N:
+#define CCP_PWM_PLUS_2                  0x2c  B  158N:
+#define CCP_PWM_PLUS_3                  0x3c  B  159N:
+long CCP_1;  B  160N:V18
+#byte   CCP_1    =                      0x15          B  161N:
+#byte   CCP_1_LOW=                      0x15          B  162N:
+#byte   CCP_1_HIGH=                     0x16          B  163N:V19
+long CCP_2;  B  164N:V20V21
+#byte   CCP_2    =                      0x1B          B  165N:
+#byte   CCP_2_LOW=                      0x1B          B  166N:
+#byte   CCP_2_HIGH=                     0x1C          B  167N:V22
+////////////////////////////////////////////////////////////////// PSP  B  168N:
+// PSP Functions: SETUP_PSP, PSP_INPUT_FULL(), PSP_OUTPUT_FULL(),  B  169N:
+//                PSP_OVERFLOW(), INPUT_D(), OUTPUT_D()  B  170N:
+// PSP Variables: PSP_DATA  B  171N:
+// Constants used in SETUP_PSP() are:  B  172N:
+#define PSP_ENABLED                     0x10  B  173N:
+#define PSP_DISABLED                    0  B  174N:
+  B  175N:
+#byte   PSP_DATA=                       8     B  176N:V23
+  B  177N:
+////////////////////////////////////////////////////////////////// SPI  B  178N:
+// SPI Functions: SETUP_SPI, SPI_WRITE, SPI_READ, SPI_DATA_IN  B  179N:
+// Constants used in SETUP_SSP() are:  B  180N:
+#define SPI_MASTER       0x20  B  181N:
+#define SPI_SLAVE        0x24  B  182N:
+#define SPI_L_TO_H       0  B  183N:
+#define SPI_H_TO_L       0x10  B  184N:
+#define SPI_CLK_DIV_4    0  B  185N:
+#define SPI_CLK_DIV_16   1  B  186N:
+#define SPI_CLK_DIV_64   2  B  187N:
+#define SPI_CLK_T2       3  B  188N:
+#define SPI_SS_DISABLED  1  B  189N:
+  B  190N:
+#define SPI_SAMPLE_AT_END 0x8000  B  191N:
+#define SPI_XMIT_L_TO_H  0x4000  B  192N:
+  B  193N:
+////////////////////////////////////////////////////////////////// UART  B  194N:
+// Constants used in setup_uart() are:  B  195N:
+// FALSE - Turn UART off  B  196N:
+// TRUE  - Turn UART on  B  197N:
+#define UART_ADDRESS 2  B  198N:
+#define UART_DATA    4  B  199N:
+// TRUE  - Turn UART on  B  200N:
+////////////////////////////////////////////////////////////////// COMP  B  201N:
+// Comparator Variables: C1OUT, C2OUT  B  202N:
+// Constants used in setup_comparators() are:  B  203N:
+#define A0_A3_A1_A3  0xfff04  B  204N:
+#define A0_A3_A1_A2_OUT_ON_A4_A5  0xfcf03  B  205N:
+#define A0_A3_A1_A3_OUT_ON_A4_A5  0xbcf05  B  206N:
+#define NC_NC_NC_NC  0x0ff07  B  207N:
+#define A0_A3_A1_A2  0xfff02  B  208N:
+#define A0_A3_NC_NC_OUT_ON_A4  0x9ef01  B  209N:
+#define A0_VR_A1_VR 0x3ff06  B  210N:
+#define A3_VR_A2_VR 0xcff0e  B  211N:
+  B  212N:
+#bit C1OUT = 0x9c.6  B  213N:V24
+#bit C2OUT = 0x9c.7  B  214N:V25
+  B  215N:
+////////////////////////////////////////////////////////////////// VREF  B  216N:
+// Constants used in setup_vref() are:  B  217N:
+#define VREF_LOW  0xa0  B  218N:
+#define VREF_HIGH 0x80  B  219N:
+#define VREF_A2   0x40  B  220N:
+  B  221N:
+  B  222N:
+////////////////////////////////////////////////////////////////// ADC  B  223N:
+// ADC Functions: SETUP_ADC(), SETUP_ADC_PORTS() (aka SETUP_PORT_A),  B  224N:
+//                SET_ADC_CHANNEL(), READ_ADC()  B  225N:
+// Constants used in SETUP_ADC_PORTS() are:  B  226N:
+#define NO_ANALOGS             0x86         // None  B  227N:
+#define ALL_ANALOG             0x80         // A0 A1 A2 A3 A5 E0 E1 E2 Ref=Vdd  B  228N:
+#define ANALOG_RA3_REF         0x81         // A0 A1 A2 A5 E0 E1 E2 Ref=A3  B  229N:
+#define A_ANALOG               0x82         // A0 A1 A2 A3 A5 Ref=Vdd  B  230N:
+#define A_ANALOG_RA3_REF       0x83         // A0 A1 A2 A5 Ref=A3  B  231N:
+#define RA0_RA1_RA3_ANALOG     0x84         // A0 A1 A3 Ref=Vdd  B  232N:
+#define RA0_RA1_ANALOG_RA3_REF 0x85         // A0 A1 Ref=A3  B  233N:
+#define ANALOG_RA3_RA2_REF              0x88   // A0 A1 A5 E0 E1 E2 Ref=A2,A3  B  234N:
+#define ANALOG_NOT_RE1_RE2              0x89   // A0 A1 A2 A3 A5 E0 Ref=Vdd  B  235N:
+#define ANALOG_NOT_RE1_RE2_REF_RA3      0x8A   // A0 A1 A2 A5 E0 Ref=A3  B  236N:
+#define ANALOG_NOT_RE1_RE2_REF_RA3_RA2  0x8B   // A0 A1 A5 E0 Ref=A2,A3  B  237N:
+#define A_ANALOG_RA3_RA2_REF            0x8C   // A0 A1 A5 Ref=A2,A3  B  238N:
+#define RA0_RA1_ANALOG_RA3_RA2_REF      0x8D   // A0 A1 Ref=A2,A3  B  239N:
+#define RA0_ANALOG                      0x8E   // A0  B  240N:
+#define RA0_ANALOG_RA3_RA2_REF          0x8F   // A0 Ref=A2,A3  B  241N:
+// Constants used for SETUP_ADC() are:  B  242N:
+#define ADC_OFF                0              // ADC Off  B  243N:
+#define ADC_CLOCK_DIV_2        1  B  244N:
+#define ADC_CLOCK_DIV_8     0x41  B  245N:
+#define ADC_CLOCK_DIV_32    0x81  B  246N:
+#define ADC_CLOCK_INTERNAL  0xc1              // Internal 2-6us  B  247N:
+  B  248N:
+// Constants used in READ_ADC() are:  B  249N:
+#define ADC_START_AND_READ     7   // This is the default if nothing is specified  B  250N:
+#define ADC_START_ONLY         1  B  251N:
+#define ADC_READ_ONLY          6  B  252N:
+  B  253N:
+////////////////////////////////////////////////////////////////// INT  B  254N:
+// Interrupt Functions: ENABLE_INTERRUPTS(), DISABLE_INTERRUPTS(),  B  255N:
+//                      EXT_INT_EDGE()  B  256N:
+//  B  257N:
+// Constants used in EXT_INT_EDGE() are:  B  258N:
+#define L_TO_H              0x40  B  259N:
+#define H_TO_L                 0  B  260N:
+// Constants used in ENABLE/DISABLE_INTERRUPTS() are:  B  261N:
+#define GLOBAL                    0x0BC0  B  262N:
+#define INT_RTCC                  0x0B20  B  263N:
+#define INT_RB                    0x0B08  B  264N:
+#define INT_EXT                   0x0B10  B  265N:
+#define INT_AD                    0x8C40  B  266N:
+#define INT_TBE                   0x8C10  B  267N:
+#define INT_RDA                   0x8C20  B  268N:
+#define INT_TIMER1                0x8C01  B  269N:
+#define INT_TIMER2                0x8C02  B  270N:
+#define INT_CCP1                  0x8C04  B  271N:
+#define INT_CCP2                  0x8D01  B  272N:
+#define INT_SSP                   0x8C08  B  273N:
+#define INT_PSP                   0x8C80  B  274N:
+#define INT_BUSCOL                0x8D08  B  275N:
+#define INT_EEPROM                0x8D10  B  276N:
+#define INT_TIMER0                0x0B20  B  277N:
+#define INT_COMP                  0x8D40  B  278N:
+  B  279N:
+#list  B  280 :X1E
+ B  280 :
+  A    2 :
+void main()  A    3 :V26f276
+{  A    4 :{2
+	int a=0;  A    5 :V28
+	  A    6 :
+} A    7 :}5E
+

@@ -1,0 +1,41 @@
+#define SPACE       0x20
+
+#define NUM_ZERO    0x30
+#define NUM_ONE     0x31
+#define NUM_TWO     0x32
+#define NUM_THREE   0x33
+#define NUM_FOUR    0x34
+#define NUM_FIVE    0x35
+#define NUM_SIX     0x36
+#define NUM_SEVEN   0x37
+#define NUM_EIGHT   0x38
+#define NUM_NINE    0x39
+
+#define NOTE_COLON  0x3A
+
+#define CAP_A       0x41
+#define CAP_B       0x42
+#define CAP_C       0x43
+#define CAP_D       0x44
+#define CAP_E       0x45
+#define CAP_F       0x46
+#define CAP_G       0x47
+#define CAP_H       0x48
+#define CAP_I       0x49
+#define CAP_J       0x4A
+#define CAP_K       0x4B
+#define CAP_L       0x4C
+#define CAP_M       0x4D
+#define CAP_N       0x4E
+#define CAP_O       0x4F
+#define CAP_P       0x50
+#define CAP_Q       0x51
+#define CAP_R       0x52
+#define CAP_S       0x53
+#define CAP_T       0x54
+#define CAP_U       0x55
+#define CAP_V       0x56
+#define CAP_W       0x57
+#define CAP_X       0x58
+#define CAP_Y       0x59
+#define CAP_Z       0x5A

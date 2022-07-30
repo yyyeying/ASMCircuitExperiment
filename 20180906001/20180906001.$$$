@@ -1,0 +1,100 @@
+ #include<pic.h> A    1 :V17
+ #ifndef	_PIC_H B    1 :I1
+#define	_PIC_H B    2 :
+ B    2 :
+#if defined(_12C508)	|| defined(_12C509) B    4 :
+	#include	<pic1250x.h> B    5 :
+#endif B    6 :
+#if defined(_16C52)	|| defined(_16C54)	|| defined(_16C54A)	||\ B    7 :
+    defined(_16CR54A)	|| defined(_16C55)	|| defined(_16C56)	||\ B    8 :f10V19f12f10V19
+    defined(_16C57)	|| defined(_16CR57B)	|| defined(_16C58A)	||\ B    9 :f14f10V19f16
+    defined(_16CR58A)	|| defined(_16C58) B   10 :f10V19f18
+	#include	<pic165x.h> B   11 :
+#endif B   12 :
+#if defined(_12C671)	|| defined(_12C672) B   13 :
+	#include	<pic1267x.h> B   14 :
+#endif B   15 :
+#ifdef	_14000 B   16 :
+	#include	<pic14000.h> B   17 :
+#endif B   18 :
+#if defined(_16C554)	|| defined(_16C556)	|| defined(_16C558) B   19 :
+	#include	<pic1655x.h> B   20 :
+#endif B   21 :
+#ifdef	_16C61 B   22 :
+	#include	<pic1661.h> B   23 :
+#endif B   24 :
+#if defined(_16C62)	|| defined(_16C62A)	|| defined(_16CR62) B   25 :
+	#include	<pic1662.h> B   26 :
+#endif B   27 :
+#if defined(_16C620)	|| defined(_16C621)	|| defined(_16C622) B   28 :
+	#include	<pic1662x.h> B   29 :
+#endif B   30 :
+#if defined(_16C63)	|| defined(_16CR63) B   31 :
+	#include	<pic1663.h> B   32 :
+#endif B   33 :
+#if defined(_16C64)	|| defined(_16C64A)	|| defined(_16CR64) B   34 :
+	#include	<pic1664.h> B   35 :
+#endif B   36 :
+#if defined(_16C641)	|| defined(_16C642)	||\ B   37 :
+    defined(_16C661)	|| defined(_16C662) B   38 :f10V19f20
+	#include	<pic166xx.h> B   39 :
+#endif B   40 :
+#if defined(_16C65)	|| defined(_16C65A)	|| defined(_16CR65) B   41 :
+	#include	<pic1665.h> B   42 :
+#endif B   43 :
+#if defined(_16C66)	|| defined(_16C67) B   44 :
+	#include	<pic166x.h> B   45 :
+#endif B   46 :
+#if defined(_16C71)	|| defined(_16C710)	|| defined(_16C711) B   47 :
+	#include	<pic1671x.h> B   48 :
+#endif B   49 :
+#ifdef	_16C715 B   50 :
+	#include	<pic16715.h> B   51 :
+#endif B   52 :
+	#ifdef	_16C72 B   53 :
+#include	<pic1672.h> B   54 :
+#endif B   55 :
+#if defined(_16C73)	|| defined(_16C73A) B   56 :
+	#include	<pic1673.h> B   57 :
+#endif B   58 :
+#if defined(_16C74)	|| defined(_16C74A) B   59 :
+	#include	<pic1674.h> B   60 :
+#endif B   61 :
+#ifdef	_16C76 B   62 :
+	#include	<pic1676.h> B   63 :
+#endif B   64 :
+#ifdef	_16C77 B   65 :
+	#include	<pic1677.h> B   66 :
+#endif B   67 :
+#if defined(_16F83)	|| defined(_16CR83) B   68 :
+	#include	<pic1683.h> B   69 :
+#endif B   70 :
+#if defined(_16C84)	|| defined(_16F84)	|| defined(_16CR84) B   71 :
+	#include	<pic1684.h> B   72 :
+#endif B   73 :
+#if defined(_16C923)	|| defined(_16C924) B   74 :
+	#include	<pic169xx.h> B   75 :
+#endif B   76 :
+#ifdef  _16C99 B   77 :
+	#include        <pic1699.h> B   78 :
+#endif B   79 :
+ B   79 :
+#ifdef  _17C42 B   81 :
+	#include        <pic1742.h> B   82 :
+#endif B   83 :
+#define	CLRWDT()	asm(" clrwdt") B   84 :
+ B   84 :
+#define	___mkstr(x)	#x B   86 :
+#define	__CONFIG(x)	asm("\tpsect config,class=CODE,delta=2");\ B   87 :
+			asm("\tglobal\tconfig_word"); \ B   88 :
+			asm("config_word"); \ B   89 :
+			asm("\tdw "___mkstr(x)) B   90 :
+#endif	/* _PIC_H */ B   91 :E
+ B   91 :
+  A    2 :
+void main(){  A    3 :f24{3
+	TRISD = 0xfe;  A    4 :
+	PORTD = 0X01;  A    5 :
+	while(1);  A    6 :
+} A    7 :}8E
+

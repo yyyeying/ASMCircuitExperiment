@@ -1,0 +1,35 @@
+pcl		equ		02h
+status	equ		03h
+rp0		equ		05h
+rb		equ		06h
+trisb	equ		86h
+
+		org		000h
+		goto	main
+		org		0005h	
+main	bsf		status, rp0
+		clrf	trisb
+		bcf		status, rp0
+		movf	20h, 0
+		andlw	0fh
+		call	convert
+		movwf 	rb
+		goto	main
+
+convert	
+		addwf	pcl, 1
+table	retlw	3fh
+		retlw	06h
+		retlw	5bh
+		retlw	4fh
+		retlw	66h
+		retlw	6dh
+		retlw	7dh
+		retlw	6fh
+		retlw	77h
+		retlw	7ch
+		retlw	39h
+		retlw	5eh
+		retlw	79h
+		retlw	71h
+		end

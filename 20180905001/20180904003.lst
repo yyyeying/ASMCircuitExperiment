@@ -1,0 +1,85 @@
+MPASM  5.51                   20180904003.ASM   9-5-2018  9:48:58         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+  00000003            00001 status          equ             3h
+  00000006            00002 portb           equ             6h
+  00000086            00003 trisb           equ             86h
+  00000007            00004 portc           equ             7h
+  00000087            00005 trisc           equ             87h
+  00000020            00006 data1           equ             20h
+  00000021            00007 data2           equ             21h
+  0000000D            00008 n1                      equ             d'13'
+  000000FF            00009 n2                      equ             0ffh
+                      00010 
+  00000005            00011 rp0                     equ             5h
+                      00012 
+                      00013                         org             000h
+0000   0000           00014                         nop
+0001   1683           00015                         bsf             status, rp0
+0002   3000           00016                         movlw   00h
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0003   0087           00017                         movwf   trisc
+0004   30FF           00018                         movlw   0ffh
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0005   0086           00019                         movwf   trisb
+0006   1283           00020                         bcf             status, rp0
+0007   3000           00021                         movlw   00h
+0008   0087           00022                         movwf   portc
+0009   1806           00023 check           btfsc   portb, 0
+000A   2???           00024                         goto    check
+000B   2???           00025                         call    delay
+000C   1806           00026                         btfsc   portb, 0
+000D   2???           00027                         goto    check
+Message[305]: Using default destination of 1 (file).
+000E   0A87           00028                         incf    portc
+000F   1C06           00029 check1          btfss   portb, 0
+0010   2???           00030                         goto    check1
+0011   2???           00031                         call    delay
+0012   1C06           00032                         btfss   portb, 0
+0013   2???           00033                         goto    check1
+0014   2???           00034                         goto    check
+                      00035 
+0015                  00036 delay
+0015   300D           00037                         movlw   n1
+0016   00A0           00038                         movwf   data1
+0017   30FF           00039 lp0                     movlw   n2
+0018   00A1           00040                         movwf   data2
+0019   0BA1           00041 lp1                     decfsz  data2,1
+001A   2???           00042                         goto    lp1
+001B   0BA0           00043                         decfsz  data1,1
+001C   2???           00044                         goto    lp0
+001D   0008           00045                         return
+                      00046                         end
+MPASM  5.51                   20180904003.ASM   9-5-2018  9:48:58         PAGE  2
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+__16F877A                         00000001
+__DEBUG                           1
+__MPLAB_DEBUGGER_PK3              1
+check                             00000009
+check1                            0000000F
+data1                             00000020
+data2                             00000021
+delay                             00000015
+lp0                               00000017
+lp1                               00000019
+n1                                0000000D
+n2                                000000FF
+portb                             00000006
+portc                             00000007
+rp0                               00000005
+status                            00000003
+trisb                             00000086
+trisc                             00000087
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :     3 reported,     0 suppressed
+
+

@@ -1,0 +1,39 @@
+MPLINK 4.49, Linker
+Linker Map File - Created Wed Sep 05 11:11:31 2018
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x00006a
+                   .cinit    romdata   0x001800    program   0x000004
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000034      
+                            0x001800    0x001801      
+            55 out of 8454 program addresses used, program memory utilization is 0%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                    delay   0x00002c    program     static C:\myFiles\CircuitExperiment\20180905002\20180905002.asm
+                     down   0x000025    program     static C:\myFiles\CircuitExperiment\20180905002\20180905002.asm
+                      lp0   0x00002e    program     static C:\myFiles\CircuitExperiment\20180905002\20180905002.asm
+                      lp1   0x000030    program     static C:\myFiles\CircuitExperiment\20180905002\20180905002.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                     down   0x000025    program     static C:\myFiles\CircuitExperiment\20180905002\20180905002.asm
+                    delay   0x00002c    program     static C:\myFiles\CircuitExperiment\20180905002\20180905002.asm
+                      lp0   0x00002e    program     static C:\myFiles\CircuitExperiment\20180905002\20180905002.asm
+                      lp1   0x000030    program     static C:\myFiles\CircuitExperiment\20180905002\20180905002.asm
+
+

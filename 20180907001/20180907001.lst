@@ -1,0 +1,1137 @@
+MPASM  5.51                   20180907001.ASM   9-15-2018  14:32:47         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+  00000001            00001 tmr0                    equ             0x01                            ;TMR0
+  00000002            00002 pcl                             equ             0x02    
+  00000003            00003 status                  equ             0x03                            ;×´Ì¬¼Ä´æÆ÷
+  00000081            00004 option_reg              equ             0x81                            ;Ñ¡Ïî¼Ä´æÆ÷
+  0000000B            00005 intcon                  equ             0x0b                            ;ÖÐ¶Ï¿ØÖÆ¼Ä´æÆ÷
+  00000005            00006 rp0                             equ             0x05                            ;×´Ì¬¼Ä´æÆ÷ÖÐµÄÒ³Ñ¡Î»RP0
+  00000005            00007 porta                   equ             0x05                            ;Êª¶È´«¸ÐÆ÷-RA0
+  00000085            00008 trisa                   equ             0x85
+  00000006            00009 portb                   equ             0x06                            ;2LCDÊý¾ÝÏß-RB0-RB7
+  00000086            00010 trisb                   equ             0x86
+  00000007            00011 portc                   equ             0x07                            ;ÎÂ¶È´«¸ÐÆ÷-RC0
+  00000087            00012 trisc                   equ             0x87            
+  00000008            00013 portd                   equ             0x08                            ;RS-RD0 RW-RD1 E-RD2
+  00000088            00014 trisd                   equ     0x88    
+  00000009            00015 porte                   equ             0x09                            
+  00000089            00016 trise                   equ             0x89
+  0000001F            00017 adcon0                  equ             0x1f
+  0000009F            00018 adcon1                  equ             0x9f    
+  0000000B            00019 intcon                  equ             0x0b
+  0000001E            00020 adresh                  equ             0x1e
+  0000009E            00021 adresl                  equ             0x9e
+  00000002            00022 t0if                    equ             0x02
+  0000000C            00023 pir1                    equ             0x0c
+  00000002            00024 go                              equ             0x02
+  00000006            00025 adif                    equ             0x06
+  00000000            00026 c                               equ             0x00
+                      00027 
+                      00028 
+  00000020            00029 var_delay1              equ             0x20                            ;ÑÓÊ±±äÁ¿1
+  00000021            00030 var_delay2              equ             0x21                            ;ÑÓÊ±±äÁ¿2
+                      00031 
+  0000002C            00032 var_temp_hund   equ             0x2c                            ;´¦ÀíºóµÄÎÂ¶ÈµÄ°ÙÎ»BCDÂë
+  00000022            00033 var_temp_ten    equ             0x22                            ;´¦ÀíºóµÄÎÂ¶ÈÖµµÄÊ®Î»BCDÂë
+  00000023            00034 var_temp_one    equ             0x23                            ;´¦ÀíºóµÄÎÂ¶ÈµÄ¸öÎ»BCDÂë
+  00000024            00035 var_temp_p              equ             0x24                            ;´¦ÀíºóµÄÎÂ¶ÈµÄÊ®·ÖÎ»BCDÂë
+  00000025            00036 var_temp_hs             equ             0x25                            ;´Ó´«¸ÐÆ÷½ÓÊÕµÄÎÂ¶ÈµÄ¸ß×Ö½Ú
+  00000026            00037 var_temp_ls             equ             0x26                            ;´Ó´«¸ÐÆ÷½ÓÊÕµÄÎÂ¶ÈµÄµÍ×Ö½Ú
+  00000027            00038 var_temp                equ             0x27                            ;´Ó´«¸ÐÆ÷½ÓÊÕµÄÎÂ¶ÈµÄÕûÊý²¿·Ö
+                      00039 
+  00000028            00040 hund                    equ             0x28                            ;ÔÚ¶þ½øÖÆ×ªBCDµÄ¹ý³ÌÖÐµÄÖÐ¼ä±äÁ¿
+  00000029            00041 ten                             equ             0x29
+  0000002A            00042 one                             equ             0x2a
+  0000002B            00043 num                             equ             0x2b
+  0000002E            00044 point                   equ             0x2e
+                      00045 
+                      00046 
+                      00047 
+  00000034            00048 var_ds_bit              equ             0x34                            ;´ÓÎÂ¶È´«¸ÐÆ÷½ÓÊÕµÄ1bitÊý¾Ý
+  00000030            00049 var_ds_write    equ             0x30                            ;×¼±¸Ð´¸øÎÂ¶È´«¸ÐÆ÷µÄÊý¾Ý
+  00000031            00050 var_ds_i                equ             0x31                            ;±äÁ¿
+  00000032            00051 var_ds_read             equ             0x32                            ;´ÓÎÂ¶È´«¸ÐÆ÷½ÓÊÕµÄ1byteÊý¾Ý
+                      00052 
+                      00053 
+MPASM  5.51                   20180907001.ASM   9-15-2018  14:32:47         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+  00000041            00054 var_humd_hund   equ             0x41
+  00000042            00055 var_humd_ten    equ             0x42
+  00000043            00056 var_humd_one    equ             0x43
+  00000046            00057 var_humd_p              equ             0x46
+  00000044            00058 var_humd                equ             0x44
+  00000047            00059 var_humd_get    equ             0x47
+  00000045            00060 var_humd_get2   equ             0x45
+                      00061 
+  00000033            00062 var_us                  equ             0x33                            ;ÓÃÓÚÎ¢Ãë¼¶ÑÓÊ±µÄ±äÁ¿
+  00000050            00063 var_us2                 equ             0x50                            ;ÓÃÓÚÎ¢Ãë¼¶ÑÓÊ±µÄ±äÁ¿
+                      00064 
+  00000035            00065 var_display             equ             0x35
+  00000036            00066 var_display_i   equ             0x36
+                      00067 
+                      00068 #define CHAR_SPACE     0x20
+                      00069 
+                      00070 #define NUM_ZERO        0x30
+                      00071 #define NUM_ONE         0x31
+                      00072 #define NUM_TWO         0x32
+                      00073 #define NUM_THREE       0x33
+                      00074 #define NUM_FOUR        0x34
+                      00075 #define NUM_FIVE        0x35
+                      00076 #define NUM_SIX         0x36
+                      00077 #define NUM_SEVEN       0x37
+                      00078 #define NUM_EIGHT       0x38
+                      00079 #define NUM_NINE        0x39
+                      00080 
+                      00081 #define NOTE_COLON      0x3A                    ;Ã°ºÅ
+                      00082 #define NOTE_PERIOD     0x2E                            ;¾äºÅ
+                      00083 #define NOTE_EX         0x21                    ;¸ÐÌ¾ºÅ
+                      00084 #define NOTE_PER                0x25                            ;°Ù·ÖºÅ
+                      00085 
+                      00086 #define CAP_C           0x43
+                      00087 #define CAP_E           0x45
+                      00088 #define CAP_L           0x4C
+                      00089 #define CAP_M           0x4D
+                      00090 #define CAP_O           0x4F
+                      00091 #define CAP_W           0x57
+                      00092 
+  00000080            00093 const_line1             equ             0x80                            ;LCD¸÷ÐÐµØÖ·
+  00000090            00094 const_line2             equ             0x90
+  00000088            00095 const_line3             equ             0x88
+  00000098            00096 const_line4             equ             0x98
+                      00097 
+  0000000A            00098 PCLATH                  equ             0x0a
+                      00099 
+                      00100                                 org             0000h
+0000                  00101 main    
+0000   0000           00102                                 nop
+                      00103 ;******************************************¶Ë¿ÚÊäÈëÊä³öÉèÖÃ
+0001   3041           00104                                 movlw   0x41
+0002   009F           00105                                 movwf   adcon0                          ;ADCON0£¬µÚ7,6Î»Ñ¡ÔñÊ±ÖÓÆµÂÊ£¬µÚ
+                            5-3Î»Ñ¡Ôñ×ª»»Í¨µÀ£¬µÚ2Î»×ª»»×´Ì¬±êÖ¾£¬µÚ0Î»×ª»»Æ÷¿ª¹Ø
+MPASM  5.51                   20180907001.ASM   9-15-2018  14:32:47         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00106                                                                                         ;01000001£¬Ê±ÖÓÆ
+                            µÂÊf/8£¬Í¨µÀRA0£¬×ª»»Æ÷¿ª
+0003   1683           00107                                 bsf             status,rp0                      ;ÉèÖÃÎÄ¼þ¼Ä´æÆ÷µÄÌå1
+0004   30FF           00108                                 movlw   0xff
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0005   0085           00109                                 movwf   trisa                           ;¶Ë¿ÚRA0 ÊäÈë
+0006   3000           00110                                 movlw   0x00                    
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0007   0086           00111                                 movwf   trisb                           ;¶Ë¿ÚB Êä³ö             
+0008   3000           00112                                 movlw   0x00
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0009   0087           00113                                 movwf   trisc
+000A   3000           00114                                 movlw   0x00
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+000B   0088           00115                                 movwf   trisd                           ;¶Ë¿ÚD Êä³ö
+000C   3085           00116                                 movlw   0x85            
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+000D   009F           00117                                 movwf   adcon1                          ;ADCON1,µÚÆßÎ»Ñ¡ÔñADC½á¹û×ó¶ÔÆë£
+                            ¨0£©ÓÒ¶ÔÆë£¨1£©£¬ºóËÄÎ»È·¶¨Ä£Äâ¿ÚºÍ²Î¿¼µçÑ¹
+                      00118                                                                                         ;10000101£¬ÓÒ¶ÔÆ
+                            ë£¬RA3ÎªVref£¬RA0ÎªA¿Ú
+                      00119                                 ;movlw  0x01
+000E   3087           00120                                 movlw   0x87
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+000F   0081           00121                                 movwf   option_reg                      ;·ÖÆµ±ÈÉèÎª"1:256"
+0010   1283           00122                                 bcf             status,rp0                      ;»Ö¸´µ½ÎÄ¼þ¼Ä´æÆ÷µÄÌå0
+                      00123                         
+                      00124 ;********************************************LCD³õÊ¼»¯
+0011   3000           00125                                 movlw   0x00
+0012   0088           00126                                 movwf   portd                           ;Ö¸ÁîÊä³ö
+                      00127                                         
+0013   3001           00128                                 movlw   0x01                            ;Çå³ýÏÔÊ¾
+0014   2???           00129                                 call    lcd_display
+                      00130 
+0015   3038           00131                                 movlw   0x38                            ;8Î»2ÐÐ5*7µãÕó
+0016   2???           00132                                 call    lcd_display
+                      00133 
+0017   3006           00134                                 movlw   0x06                            ;ÎÄ×Ö²»¶¯£¬¹â±êÓÒÒÆ
+0018   2???           00135                                 call    lcd_display
+                      00136 
+0019   300C           00137                                 movlw   0x0c                                    
+001A   2???           00138                                 call    lcd_display
+                      00139                                 
+001B   3001           00140                                 movlw   0x01
+001C   2???           00141                                 call    lcd_display
+                      00142 
+                      00143 ;********************************************LCDÏÔÊ¾Êý¾Ý»¶Ó­½çÃæ
+001D   2???           00144                                 call    lcd_enable                      ;Ñ¡ÐÐ
+001E   3090           00145                                 movlw   const_line2
+001F   2???           00146                                 call    lcd_display
+                      00147 
+0020   3001           00148                                 movlw   0x01                            ;Êý¾ÝÊä³öÄ£Ê½
+0021   0088           00149                                 movwf   portd
+MPASM  5.51                   20180907001.ASM   9-15-2018  14:32:47         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00150 
+0022   2???           00151                                 call    four_space
+                      00152 
+0023   30BB           00153                                 movlw   0xbb                    ;»¶
+0024   2???           00154                                 call    lcd_display
+                      00155                                 
+0025   30B6           00156                                 movlw   0xb6
+0026   2???           00157                                 call    lcd_display
+                      00158 
+0027   30D3           00159                                 movlw   0xd3                    ;Ó­
+0028   2???           00160                                 call    lcd_display
+                      00161 
+0029   30AD           00162                                 movlw   0xad                    
+002A   2???           00163                                 call    lcd_display
+                      00164 
+002B   30CA           00165                                 movlw   0xca                    ;Ê¹
+002C   2???           00166                                 call    lcd_display
+                      00167 
+002D   30B9           00168                                 movlw   0xb9                    
+002E   2???           00169                                 call    lcd_display
+                      00170 
+002F   30D3           00171                                 movlw   0xd3                    ;ÓÃ
+0030   2???           00172                                 call    lcd_display
+                      00173 
+0031   30C3           00174                                 movlw   0xc3
+0032   2???           00175                                 call    lcd_display
+                      00176 
+0033   2???           00177                                 call    lcd_enable              ;Ñ¡ÐÐ
+0034   3088           00178                                 movlw   const_line3
+0035   2???           00179                                 call    lcd_display
+                      00180 
+0036   3001           00181                                 movlw   0x01                    ;Êý¾ÝÊä³öÄ£Ê½
+0037   0088           00182                                 movwf   portd
+                      00183 
+0038   2???           00184                                 call    four_space
+                      00185 
+0039   3057           00186                                 movlw   CAP_W
+003A   2???           00187                                 call    lcd_display
+                      00188 
+003B   3045           00189                                 movlw   CAP_E
+003C   2???           00190                                 call    lcd_display
+                      00191 
+003D   304C           00192                                 movlw   CAP_L
+003E   2???           00193                                 call    lcd_display
+                      00194 
+003F   3043           00195                                 movlw   CAP_C
+0040   2???           00196                                 call    lcd_display
+                      00197 
+0041   304F           00198                                 movlw   CAP_O
+0042   2???           00199                                 call    lcd_display
+                      00200 
+0043   304D           00201                                 movlw   CAP_M
+0044   2???           00202                                 call    lcd_display
+MPASM  5.51                   20180907001.ASM   9-15-2018  14:32:47         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00203 
+0045   3045           00204                                 movlw   CAP_E
+0046   2???           00205                                 call    lcd_display
+                      00206 
+0047   3021           00207                                 movlw   NOTE_EX
+0048   2???           00208                                 call    lcd_display
+                      00209 
+0049   2???           00210                                 call    delay1000
+004A   2???           00211                                 call    delay1000
+004B   2???           00212                                 call    delay1000
+                      00213 
+004C   2???           00214                                 call    delay
+004D   2???           00215                                 call    lcd_enable              
+004E   3001           00216                                 movlw   0x01                    ;Çå³ýÏÔÊ¾
+004F   2???           00217                                 call    lcd_display
+                      00218 
+0050   3004           00219                                 movlw   0x04
+0051   00B5           00220                                 movwf   var_display
+                      00221 
+                      00222 ;**************************************ÎÂ¶È¼ì²âÓëÊý¾Ý´¦Àí
+                      00223 
+0052                  00224 start                   
+0052   0187           00225                                 clrf    portc
+0053   2???           00226                                 call    get_temp                ;µ÷ÓÃ»ñÈ¡ÎÂ¶È×Ó³ÌÐò
+                      00227 
+                      00228                                 ;movlw  b'00010000'             ;°´ÕÕÎÂ¶È´«¸ÐÆ÷Êý¾Ý¸ñÊ½±àÐ´µÄ²âÊÔÊý¾Ý 25
+                            .0625
+                      00229                                 ;movwf  var_temp_hs
+                      00230 
+                      00231                                 ;movlw  b'00011100'
+                      00232                                 ;movwf  var_temp_ls
+                      00233 
+                      00234 
+0054   0826           00235                                 movf    var_temp_ls,0   ;¸´ÖÆµÍ×Ö½Ú
+0055   00A7           00236                                 movwf   var_temp
+                      00237 
+0056   0CA7           00238                                 rrf             var_temp,1              ;ÓÒÒÆ4Î»
+0057   0CA7           00239                                 rrf             var_temp,1
+0058   0CA7           00240                                 rrf             var_temp,1
+0059   0CA7           00241                                 rrf             var_temp,1
+005A   1227           00242                                 bcf             var_temp,4              ;Çå³ý¸ßËÄÎ»£¬ÕâÊÇÎÂ¶ÈµÄÕûÊý²¿·Öµ
+                            ÄµÍËÄÎ»
+005B   12A7           00243                                 bcf             var_temp,5
+005C   1327           00244                                 bcf             var_temp,6
+005D   13A7           00245                                 bcf             var_temp,7
+005E   0DA5           00246                                 rlf             var_temp_hs,1   ;¸ß×Ö½Ú×óÒÆ4Î»
+005F   0DA5           00247                                 rlf             var_temp_hs,1
+0060   0DA5           00248                                 rlf             var_temp_hs,1
+0061   0DA5           00249                                 rlf             var_temp_hs,1
+0062   11A5           00250                                 bcf             var_temp_hs,3   ;Çå³ýµÍËÄÎ»£¬ÕâÊÇÎÂ¶ÈµÄÕûÊý²¿·ÖµÄ¸ßËÄÎ»
+0063   1125           00251                                 bcf             var_temp_hs,2
+0064   10A5           00252                                 bcf             var_temp_hs,1
+0065   1025           00253                                 bcf             var_temp_hs,0
+MPASM  5.51                   20180907001.ASM   9-15-2018  14:32:47         PAGE  6
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0066   0825           00254                                 movf    var_temp_hs,0
+0067   07A7           00255                                 addwf   var_temp,1              ;½«¸ßËÄÎ»ºÍµÍËÄÎ»Ïà¼Ó»ñµÃÎÂ¶ÈµÄÕûÊý²¿·Ö
+0068   0827           00256                                 movf    var_temp,0
+0069   2???           00257                                 call    temp_bcd                ;×ª»»ÎªBCDÂë
+006A   0828           00258 temp_con                movf    hund,0
+006B   00AC           00259                                 movwf   var_temp_hund
+006C   0829           00260                                 movf    ten,0
+006D   00A2           00261                                 movwf   var_temp_ten
+006E   082A           00262                                 movf    one,0
+006F   00A3           00263                                 movwf   var_temp_one
+                      00264 
+0070   0826           00265                                 movf    var_temp_ls,0
+0071   00A4           00266                                 movwf   var_temp_p              ;¸´ÖÆµÍ×Ö½Ú
+0072   1224           00267                                 bcf             var_temp_p,4    ;Çå³ý¸ßËÄÎ»£¬»ñµÃÎÂ¶ÈµÄÐ¡Êý²¿·Ö
+0073   12A4           00268                                 bcf             var_temp_p,5
+0074   1324           00269                                 bcf             var_temp_p,6
+0075   13A4           00270                                 bcf             var_temp_p,7
+0076   0824           00271                                 movf    var_temp_p,0    ;½«Ð¡Êý²¿·Ö³ËÒÔ10£¬»ñµÃ10±¶µÄÐ¡Êý²¿·Ö
+0077   07A4           00272                                 addwf   var_temp_p,1
+0078   07A4           00273                                 addwf   var_temp_p,1
+0079   07A4           00274                                 addwf   var_temp_p,1
+007A   07A4           00275                                 addwf   var_temp_p,1
+007B   07A4           00276                                 addwf   var_temp_p,1
+007C   07A4           00277                                 addwf   var_temp_p,1
+007D   07A4           00278                                 addwf   var_temp_p,1
+007E   07A4           00279                                 addwf   var_temp_p,1
+007F   07A4           00280                                 addwf   var_temp_p,1
+0080   0EA4           00281                                 swapf   var_temp_p,1    ;µÍËÄÎ»Óë¸ßËÄÎ»½»»»
+0081   1224           00282                                 bcf             var_temp_p,4    ;Çå³ý¸ßËÄÎ»£¬»ñµÃÊ®·ÖÎ»µÄ¶þ½øÖÆÂë
+0082   12A4           00283                                 bcf             var_temp_p,5
+0083   1324           00284                                 bcf             var_temp_p,6
+0084   13A4           00285                                 bcf             var_temp_p,7
+0085   2???           00286                                 call    temp_bcd_p              ;×ª»»ÎªBCDÂë
+0086   082A           00287 temp_conp               movf    one,0
+0087   00A4           00288                                 movwf   var_temp_p              ;»ñµÃÎÂ¶ÈµÄÊ®·ÖÎ»µÄBCDÂë
+                      00289                                                 
+                      00290                                 
+                      00291 ;***************************************µÚÒ»ÐÐ ÎÂ¶ÈÏÔÊ¾                                 
+0088   2???           00292                                 call    lcd_enable      
+0089   3080           00293                                 movlw   const_line1
+008A   2???           00294                                 call    lcd_display
+                      00295 
+008B   3001           00296                                 movlw   0x01                    ;Êý¾ÝÊä³öÄ£Ê½
+008C   0088           00297                                 movwf   portd
+                      00298 
+008D   30CE           00299                                 movlw   0xce                    ;ÎÂ
+008E   2???           00300                                 call    lcd_display
+                      00301 
+008F   30C2           00302                                 movlw   0xc2                    
+0090   2???           00303                                 call    lcd_display
+                      00304 
+0091   30B6           00305                                 movlw   0xb6                    ;¶È
+0092   2???           00306                                 call    lcd_display
+MPASM  5.51                   20180907001.ASM   9-15-2018  14:32:47         PAGE  7
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00307                                 
+0093   30C8           00308                                 movlw   0xc8
+0094   2???           00309                                 call    lcd_display
+                      00310 
+0095   303A           00311                                 movlw   NOTE_COLON
+0096   2???           00312                                 call    lcd_display
+                      00313 
+0097   082C           00314                                 movf    var_temp_hund,0 ;½«Ã¿Ò»Î»µÄBCDÂë×ª»»ÎªASCIIÂë
+                      00315                                 ;bsf            PCLATH,3
+0098   2???           00316                                 call    convert
+                      00317                                 ;bcf            PCLATH,3
+0099   2???           00318                                 call    lcd_display
+                      00319 
+009A   0822           00320                                 movf    var_temp_ten,0
+                      00321                                 ;bsf            PCLATH,3                
+009B   2???           00322                                 call    convert
+009C   2???           00323                                 call    lcd_display
+                      00324                                 
+009D   0823           00325                                 movf    var_temp_one,0
+                      00326                                 ;bsf            PCLATH,3
+009E   2???           00327                                 call    convert
+009F   2???           00328                                 call    lcd_display
+                      00329 
+00A0   302E           00330                                 movlw   NOTE_PERIOD
+00A1   2???           00331                                 call    lcd_display
+                      00332 
+00A2   0824           00333                                 movf    var_temp_p,0
+00A3   2???           00334                                 call    convert
+00A4   2???           00335                                 call    lcd_display
+                      00336 
+00A5   30A1           00337                                 movlw   0xa1
+00A6   2???           00338                                 call    lcd_display
+                      00339 
+00A7   30E6           00340                                 movlw   0xe6
+00A8   2???           00341                                 call    lcd_display
+                      00342 
+                      00343 ;**************************************Êª¶È¼ì²âÓëÊý¾Ý´¦Àí
+00A9   2???           00344                                 call    humd_get
+00AA   09C7           00345                                 comf    var_humd_get,1
+00AB   1147           00346                                 bcf             var_humd_get,2
+00AC   11C7           00347                                 bcf             var_humd_get,3
+00AD   1247           00348                                 bcf             var_humd_get,4
+00AE   12C7           00349                                 bcf             var_humd_get,5
+00AF   1347           00350                                 bcf             var_humd_get,6
+00B0   13C7           00351                                 bcf             var_humd_get,7
+00B1   09C5           00352                                 comf    var_humd_get2,1
+00B2   2???           00353                                 call    nhumd_bcd
+00B3   0828           00354 humd_con                movf    hund,0
+00B4   00C1           00355                                 movwf   var_humd_hund
+00B5   0829           00356                                 movf    ten,0
+00B6   00C2           00357                                 movwf   var_humd_ten
+00B7   082A           00358                                 movf    one,0
+00B8   00C3           00359                                 movwf   var_humd_one
+MPASM  5.51                   20180907001.ASM   9-15-2018  14:32:47         PAGE  8
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00B9   082E           00360                                 movf    point,0
+00BA   00C6           00361                                 movwf   var_humd_p
+                      00362 
+                      00363 ;**************************************µÚ¶þÐÐ Êª¶ÈÏÔÊ¾
+00BB   2???           00364                                 call    lcd_enable              ;Ñ¡ÐÐ
+00BC   3090           00365                                 movlw   const_line2
+00BD   2???           00366                                 call    lcd_display
+                      00367 
+00BE   3001           00368                                 movlw   0x01                    ;Êý¾ÝÊä³öÄ£Ê½
+00BF   0088           00369                                 movwf   portd
+                      00370 
+00C0   30CA           00371                                 movlw   0xca                    ;Êª
+00C1   2???           00372                                 call    lcd_display
+                      00373 
+00C2   30AA           00374                                 movlw   0xaa
+00C3   2???           00375                                 call    lcd_display
+                      00376 
+00C4   30B6           00377                                 movlw   0xb6                    ;¶È
+00C5   2???           00378                                 call    lcd_display
+                      00379 
+00C6   30C8           00380                                 movlw   0xc8
+00C7   2???           00381                                 call    lcd_display
+                      00382 
+00C8   303A           00383                                 movlw   NOTE_COLON
+00C9   2???           00384                                 call    lcd_display
+                      00385 
+00CA   0841           00386                                 movf    var_humd_hund,0
+                      00387                                 ;bsf            PCLATH,3
+00CB   2???           00388                                 call    convert
+                      00389                                 ;movlw  NUM_ZERO
+00CC   2???           00390                                 call    lcd_display
+                      00391 
+00CD   0842           00392                                 movf    var_humd_ten,0
+                      00393                                 ;bsf            PCLATH,3
+00CE   2???           00394                                 call    convert
+                      00395                                 ;movlw  NUM_ZERO
+00CF   2???           00396                                 call    lcd_display
+                      00397 
+00D0   0843           00398                                 movf    var_humd_one,0
+                      00399                                 ;bsf            PCLATH,3
+00D1   2???           00400                                 call    convert
+                      00401                                 ;movlw  NUM_ZERO
+00D2   2???           00402                                 call    lcd_display
+                      00403 
+00D3   302E           00404                                 movlw   NOTE_PERIOD
+00D4   2???           00405                                 call    lcd_display
+                      00406 
+00D5   0846           00407                                 movf    var_humd_p,0
+00D6   2???           00408                                 call    convert
+                      00409                                 ;movlw  NUM_ZERO
+00D7   2???           00410                                 call    lcd_display
+                      00411 
+00D8   3025           00412                                 movlw   NOTE_PER
+MPASM  5.51                   20180907001.ASM   9-15-2018  14:32:47         PAGE  9
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00D9   2???           00413                                 call    lcd_display
+                      00414 
+                      00415 ;**************************************µÚËÄÐÐÄÚÈÝ
+00DA   2???           00416                                 call    lcd_enable              ;Ñ¡ÐÐ
+00DB   3098           00417                                 movlw   const_line4
+00DC   2???           00418                                 call    lcd_display
+                      00419 
+00DD   3001           00420                                 movlw   0x01                    ;Êý¾ÝÊä³öÄ£Ê½
+00DE   0088           00421                                 movwf   portd
+                      00422 
+00DF   2???           00423                                 call    four_space
+                      00424 
+00E0   30CE           00425                                 movlw   0xce                    ;ÎÂ
+00E1   2???           00426                                 call    lcd_display
+                      00427 
+00E2   30C2           00428                                 movlw   0xc2                    
+00E3   2???           00429                                 call    lcd_display
+                      00430 
+00E4   30CA           00431                                 movlw   0xca                    ;Êª
+00E5   2???           00432                                 call    lcd_display
+                      00433                                 
+00E6   30AA           00434                                 movlw   0xaa
+00E7   2???           00435                                 call    lcd_display
+                      00436 
+00E8   30B6           00437                                 movlw   0xb6                    ;¶È
+00E9   2???           00438                                 call    lcd_display
+                      00439                                 
+00EA   30C8           00440                                 movlw   0xc8
+00EB   2???           00441                                 call    lcd_display
+                      00442 
+00EC   30BC           00443                                 movlw   0xbc                    ;¼Æ
+00ED   2???           00444                                 call    lcd_display
+                      00445                                 
+00EE   30C6           00446                                 movlw   0xc6
+00EF   2???           00447                                 call    lcd_display
+                      00448 
+00F0   3020           00449                                 movlw   CHAR_SPACE
+00F1   2???           00450                                 call    lcd_display
+                      00451 
+00F2   3020           00452                                 movlw   CHAR_SPACE
+00F3   2???           00453                                 call    lcd_display
+                      00454 
+00F4   2???           00455                                 goto    start
+                      00456 
+                      00457 
+                      00458 ;******************************************×Ó³ÌÐòÁÐ±í
+                      00459 ;*****************************************BCDÂë×ªÎªASCIIÂë
+00F5   0782           00460 convert                 addwf   pcl,1
+00F6   3430           00461 table                   retlw   NUM_ZERO
+00F7   3431           00462                                 retlw   NUM_ONE
+00F8   3432           00463                                 retlw   NUM_TWO
+00F9   3433           00464                                 retlw   NUM_THREE
+00FA   3434           00465                                 retlw   NUM_FOUR
+MPASM  5.51                   20180907001.ASM   9-15-2018  14:32:47         PAGE 10
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00FB   3435           00466                                 retlw   NUM_FIVE
+00FC   3436           00467                                 retlw   NUM_SIX
+00FD   3437           00468                                 retlw   NUM_SEVEN
+00FE   3438           00469                                 retlw   NUM_EIGHT
+00FF   3439           00470                                 retlw   NUM_NINE
+0100   0008           00471                                 return
+                      00472                         
+                      00473 ;********************************************LCDÊ¹ÄÜ¶Ë¿ØÖÆ
+0101   3000           00474 lcd_enable              movlw   00h
+0102   0088           00475                                 movwf   portd                           ;E=0, RW=0, RS=0
+0103   2???           00476                                 call    delay
+0104   3040           00477                                 movlw   40h
+0105   0088           00478                                 movwf   portd                           ;E=1, RW=0, RS=0
+0106   2???           00479                                 call    delay
+0107   0008           00480                                 return
+                      00481 
+0108   0086           00482 lcd_display             movwf   portb
+0109   1508           00483                                 bsf             portd,2                         ;E=1, RW=0, RS=1
+010A   2???           00484                                 call    delay
+010B   1108           00485                                 bcf             portd,2                         ;E=0, RW=0, RS=1
+010C   2???           00486                                 call    delay
+010D   0008           00487                                 return
+                      00488                         
+                      00489 ;********************************************10msÑÓÊ±
+010E   300C           00490 delay                   movlw   0x0c
+010F   00A0           00491                                 movwf   var_delay1
+0110   3098           00492 loop0                   movlw   0x98
+0111   00A1           00493                                 movwf   var_delay2
+0112   0BA1           00494 loop1                   decfsz  var_delay2, 1
+0113   2???           00495                                 goto    loop1
+0114   0BA0           00496                                 decfsz  var_delay1, 1
+0115   2???           00497                                 goto    loop0
+0116   0008           00498                                 return
+                      00499 
+                      00500 ;*******************************************100msÑÓÊ±
+0117   2???           00501 delay100                call    delay
+0118   2???           00502                                 call    delay
+0119   2???           00503                                 call    delay
+011A   2???           00504                                 call    delay
+011B   2???           00505                                 call    delay
+011C   2???           00506                                 call    delay
+011D   2???           00507                                 call    delay
+011E   2???           00508                                 call    delay
+011F   2???           00509                                 call    delay
+0120   2???           00510                                 call    delay
+0121   0008           00511                                 return
+                      00512 
+                      00513 ;*****************************************+1s
+0122   2???           00514 delay1000               call    delay100
+0123   2???           00515                                 call    delay100
+0124   2???           00516                                 call    delay100
+0125   2???           00517                                 call    delay100
+0126   2???           00518                                 call    delay100
+MPASM  5.51                   20180907001.ASM   9-15-2018  14:32:47         PAGE 11
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0127   2???           00519                                 call    delay100
+0128   2???           00520                                 call    delay100
+0129   2???           00521                                 call    delay100
+012A   2???           00522                                 call    delay100
+012B   2???           00523                                 call    delay100
+012C   0008           00524                                 return
+                      00525 
+012D   3004           00526 delay15us               movlw   0x04                    ;1
+012E   00B3           00527                                 movwf   var_us                  ;1
+012F   0BB3           00528 loop2                   decfsz  var_us,1                ;1/2
+0130   2???           00529                                 goto    loop2                   ;2
+0131   0008           00530                                 return                                  ;2
+                      00531 
+0132   3009           00532 delay30us               movlw   0x09                    ;1
+0133   00B3           00533                                 movwf   var_us                  ;1
+0134   0BB3           00534 loop7                   decfsz  var_us,1                ;1/2
+0135   2???           00535                                 goto    loop7                   ;2
+0136   0008           00536                                 return                                  ;2
+                      00537 
+0137   300E           00538 delay45us               movlw   0x0e                    ;1
+0138   00B3           00539                                 movwf   var_us                  ;1
+0139   0BB3           00540 loop8                   decfsz  var_us,1                ;1/2
+013A   2???           00541                                 goto    loop8                   ;2
+013B   0008           00542                                 return                                  ;2              
+                      00543 
+013C   3017           00544 delay70us               movlw   0x17                    ;1
+013D   00B3           00545                                 movwf   var_us                  ;1
+013E   0BB3           00546 loop3                   decfsz  var_us,1                ;1/2
+013F   2???           00547                                 goto    loop3                   ;2
+0140   0008           00548                                 return                                  ;2
+                      00549 
+0141   3007           00550 delay500us              movlw   0x07                    ;1
+0142   00B3           00551                                 movwf   var_us                  ;1
+0143   300F           00552 loop4                   movlw   0x0f
+0144   00D0           00553                                 movwf   var_us2
+Message[305]: Using default destination of 1 (file).
+0145   0BD0           00554 loop9                   decfsz  var_us2
+0146   2???           00555                                 goto    loop9
+0147   0BB3           00556                                 decfsz  var_us,1                ;1/2
+0148   2???           00557                                 goto    loop4                   ;2
+0149   0008           00558                                 return                                  ;2
+                      00559 
+014A   3007           00560 delay750us              movlw   0x07
+014B   00B3           00561                                 movwf   var_us
+014C   3017           00562 loop5                   movlw   0x17
+014D   00D0           00563                                 movwf   var_us2
+014E   0BD0           00564 loop6                   decfsz  var_us2,1
+014F   2???           00565                                 goto    loop6
+Message[305]: Using default destination of 1 (file).
+0150   0BB3           00566                                 decfsz  var_us
+0151   2???           00567                                 goto    loop5
+0152   0008           00568                                 return
+                      00569 
+MPASM  5.51                   20180907001.ASM   9-15-2018  14:32:47         PAGE 12
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00570 
+                      00571 
+                      00572 ;*****************************************ÎÂ¶È´«¸ÐÆ÷¿ØÖÆ
+                      00573 ;*****************************************»ñÈ¡ÎÂ¶È
+0153   2???           00574 get_temp                call    ds_reset                        ;³õÊ¼»¯´«¸ÐÆ÷
+0154   30CC           00575                                 movlw   0xcc                            ;0xccÌø¹ýROMÖ¸Áî£¬ÓÃÓÚÖ»ÓÐÒ»¸ö´«
+                            ¸ÐÆ÷µÄÊ±ºò¡£
+0155   2???           00576                                 call    ds_write                        ;DS18B20Ö§³Ö´«¸ÐÆ÷×éÍø£¬Ã¿¸ö´«¸Ð
+                            Æ÷¶¼ÓÐÒ»¸ö64Î»µÄROMµØÖ·
+                      00577                                                                                         ;×éÍøÊ±ÐèÒª·¢ËÍR
+                            OMÆ¥ÅäÖ¸Áî£¬µ¥¸ö´«¸ÐÆ÷Ê±²»ÓÃ£¬Ö±½Ó·¢ËÍ0xccÌø¹ý¡£
+0156   3044           00578                                 movlw   0x44                            ;0x44ÎÂ¶È×ª»»Ö¸Áî
+0157   2???           00579                                 call    ds_write                        
+0158   2???           00580                                 call    delay750us                      ;ÑÓÊ±750us
+0159   2???           00581                                 call    ds_reset                        ;³õÊ¼»¯´«¸ÐÆ÷
+015A   30CC           00582                                 movlw   0xcc                            ;0xccÌø¹ýROMÖ¸Áî
+015B   2???           00583                                 call    ds_write
+015C   30BE           00584                                 movlw   0xbe                            ;0xbe¶ÁÔÝ´æÆ÷Ö¸Áî£¬DS18B20µÄÔÝ´æ
+                            Æ÷¹²ÓÐ9¸ö×Ö½Ú£¬×îºó2×Ö½Ú´æ´¢µÄÊÇµ±Ç°µÄÎÂ¶ÈÖµ
+015D   2???           00585                                 call    ds_write                        
+015E   2???           00586                                 call    ds_read
+015F   0832           00587                                 movf    var_ds_read,0           ;¶ÁµÍ×Ö½Ú
+0160   00A6           00588                                 movwf   var_temp_ls
+0161   2???           00589                                 call    ds_read
+0162   0832           00590                                 movf    var_ds_read,0           ;¶Á¸ß×Ö½Ú
+0163   00A5           00591                                 movwf   var_temp_hs
+0164   0008           00592                                 return
+                      00593 
+                      00594 ;*****************************************ÎÂ¶È´«¸ÐÆ÷³õÊ¼»¯
+                      00595 ;³õÊ¼»¯²½Öè£º
+                      00596 ;Êä³ö¸ßµçÆ½
+                      00597 ;ÑÓÊ±
+                      00598 ;Êä³öµÍµçÆ½
+                      00599 ;ÑÓÊ±480-960us
+                      00600 ;Êä³ö¸ßµçÆ½
+                      00601 ;Èô³õÊ¼»¯³É¹¦£¬Ôò»áÔÚ15-60usºó·µ»ØÒ»¸öµÍµçÆ½
+0165   3001           00602 ds_reset                movlw   0x01
+0166   00B4           00603                                 movwf   var_ds_bit
+0167   1683           00604 ds_reset_loop   bsf             status,rp0
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0168   1007           00605                                 bcf             trisc,0
+0169   1283           00606                                 bcf             status,rp0
+016A   1407           00607                                 bsf             portc,0                         ;Êä³ö¸ßµçÆ½
+016B   0000           00608                                 nop                                                     ;ÑÓÊ±2us
+016C   0000           00609                                 nop
+016D   1007           00610                                 bcf             portc,0                         ;Êä³öµÍµçÆ½
+016E   2???           00611                                 call    delay750us                      ;ÑÓÊ±750us
+016F   1407           00612                                 bsf             portc,0                         ;Êä³ö¸ßµçÆ½
+0170   2???           00613                                 call    delay70us                       ;ÑÓÊ±70us
+0171   1683           00614                                 bsf             status,rp0                      ;ÊäÈëÄ£Ê½
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0172   1407           00615                                 bsf             trisc,0;
+0173   1283           00616                                 bcf             status,rp0
+MPASM  5.51                   20180907001.ASM   9-15-2018  14:32:47         PAGE 13
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0174   1807           00617                                 btfsc   portc,0                         ;¶ÁÈ¡Êý¾Ý£¬Èç¹û·µ»ØÒ»¸öµÍµçÆ½£¬Ë
+                            µÃ÷´«¸ÐÆ÷³õÊ¼»¯³É¹¦
+0175   2???           00618                                 goto    ds_reset_loop           ;Èç¹ûÃ»ÓÐ·µ»ØµÍµçÆ½£¬ÐèÒªÖØÐÂ³õÊ¼»¯
+0176   2???           00619                                 call    delay500us                      ;ÑÓÊ±500us
+0177   1683           00620                                 bsf             status,rp0                      ;Êä³öÄ£Ê½
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0178   1007           00621                                 bcf             trisc,0
+0179   1283           00622                                 bcf             status,rp0
+017A   1407           00623                                 bsf             portc,0                         ;Êä³ö¸ßµçÆ½
+017B   0000           00624                                 nop
+017C   0008           00625                                 return
+                      00626 
+                      00627 ;*****************************************ÎÂ¶È´«¸ÐÆ÷Êä³ö8bitÊý¾Ý
+                      00628 ;Ð´Êý¾Ý²½Öè£º
+                      00629 ;Êä³öµÍµçÆ½
+                      00630 ;ÑÓÊ±15us
+                      00631 ;´ÓµÍµ½¸ß·¢ËÍÊý¾Ý
+                      00632 ;ÑÓÊ±45us
+                      00633 ;Êä³ö¸ßµçÆ½
+                      00634 ;ÖØ¸´ÒÔÉÏ²½ÖèÖ±ÖÁ·¢ËÍÍêÊý¾Ý£¬Òª´ÓµÍÎ»µ½¸ßÎ»·¢ËÍ
+                      00635 ;Êä³ö¸ßµçÆ½
+017D   00B0           00636 ds_write                movwf   var_ds_write
+017E   3008           00637                                 movlw   0x08
+017F   00B1           00638                                 movwf   var_ds_i
+0180   1683           00639                                 bsf             status,rp0                      ;Êä³öÄ£Ê½
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0181   1007           00640                                 bcf             trisc,0
+0182   1283           00641                                 bcf             status,rp0                      
+0183   1407           00642 ds_write_loop   bsf             portc,0                         ;Êä³ö¸ßµçÆ½
+0184   0000           00643                                 nop                                                     ;ÑÓÊ±2us
+0185   0000           00644                                 nop
+0186   1007           00645                                 bcf             portc,0                         ;Êä³öµÍµçÆ½
+0187   2???           00646                                 call    delay15us                       ;ÑÓÊ±15us
+0188   0CB0           00647                                 rrf             var_ds_write,1          ;ÓÒÒÆÒ»Î»£¬Ä©Î»»á½øÈëstatusµÄC
+0189   1C03           00648                                 btfss   status,c                        ;ÅÐ¶ÏÄ©Î»Îª0»ò1
+018A   2???           00649                                 goto    write_0                         
+018B   1407           00650                                 bsf             portc,0                         ;Ä©Î»Îª1£¬Êä³ö¸ßµçÆ½
+018C   2???           00651                                 goto    write_1
+018D   1007           00652 write_0                 bcf             portc,0                         ;Ä©Î»Îª0£¬Êä³öµÍµçÆ½
+018E   2???           00653 write_1                 call    delay45us                       ;ÑÓÊ±45us
+018F   1407           00654                                 bsf             portc,0                         ;Êä³ö¸ßµçÆ½
+0190   0BB1           00655                                 decfsz  var_ds_i,1
+0191   2???           00656                                 goto    ds_write_loop
+0192   0008           00657                                 return
+                      00658 
+                      00659 ;*****************************************´ÓÎÂ¶È´«¸ÐÆ÷¶Á8bitÊý¾Ý
+                      00660 ;¶ÁÊý¾Ý²½Öè£º
+                      00661 ;Êä³ö¸ßµçÆ½
+                      00662 ;ÑÓÊ±2us
+                      00663 ;Êä³öµÍµçÆ½
+                      00664 ;ÑÓÊ±6us
+                      00665 ;Êä³ö¸ßµçÆ½
+                      00666 ;ÑÓÊ±4us
+MPASM  5.51                   20180907001.ASM   9-15-2018  14:32:47         PAGE 14
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00667 ;¶Á×´Ì¬Î»²¢½øÐÐ´¦Àí
+                      00668 ;ÑÓÊ±30us
+                      00669 ;ÖØ¸´ÒÔÉÏ²½Öè£¬Ö±ÖÁ¶ÁÍêÒ»¸ö×Ö½Ú£¬´«¸ÐÆ÷»áÓÉµÍÎ»ÖÁ¸ßÎ»·¢ËÍÊý¾Ý
+0193                  00670 ds_read                 
+0193   01B2           00671                                 clrf    var_ds_read
+0194   3008           00672                                 movlw   0x08
+0195   00B1           00673                                 movwf   var_ds_i
+0196                  00674 ds_read_loop    
+0196   01B4           00675                                 clrf    var_ds_bit
+0197   1683           00676                                 bsf             status,rp0                      ;Êä³öÄ£Ê½
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0198   1007           00677                                 bcf             trisc,0
+0199   1283           00678                                 bcf             status,rp0      
+019A   1007           00679                                 bcf             portc,0                         ;Êä³öµÍµçÆ½
+019B   0000           00680                                 nop                                                     ;ÑÓÊ±6us
+019C   0000           00681                                 nop
+019D   0000           00682                                 nop
+019E   0000           00683                                 nop
+019F   0000           00684                                 nop
+01A0   0000           00685                                 nop
+01A1   1407           00686                                 bsf             portc,0                         ;Êä³ö¸ßµçÆ½
+01A2   0000           00687                                 nop                                                     ;ÑÓÊ±4us
+01A3   0000           00688                                 nop
+01A4   0000           00689                                 nop
+01A5   0000           00690                                 nop
+01A6   1683           00691                                 bsf             status,rp0
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+01A7   1407           00692                                 bsf             trisc,0                         ;ÊäÈëÄ£Ê½
+01A8   1283           00693                                 bcf             status,rp0                      ;¸ù¾Ý´«¸ÐÆ÷·µ»ØµÄÊý¾Ý¸ü¸
+                            ÄstatusµÄC
+01A9   1403           00694                                 bsf             status,c
+01AA   1C07           00695                                 btfss   portc,0
+01AB   1003           00696                                 bcf             status,c
+01AC   0CB2           00697                                 rrf             var_ds_read,1           ;ÓÒÒÆ¶ÁÈ¡µÄÊý¾Ý£¬ÕâÑùstatusµÄC»á
+                            ´æÈëÊý¾ÝÖÐ
+01AD   2???           00698                                 call    delay70us                       ;ÑÓÊ±70us
+01AE   0BB1           00699                                 decfsz  var_ds_i,1
+01AF   2???           00700                                 goto    ds_read_loop
+01B0   0008           00701                                 return
+                      00702 
+                      00703 
+                      00704 ;******************************************¶þ½øÖÆÊý×ªÎªBCDÂë
+01B1   00AB           00705 temp_bcd                movwf   num
+01B2   01A8           00706                                 clrf    hund
+01B3   01A9           00707                                 clrf    ten
+01B4   01AA           00708                                 clrf    one
+01B5   0B2B           00709                                 decfsz  num,0
+01B6   2???           00710                                 goto    inc
+01B7   2???           00711                                 goto    temp_con
+01B8   0AAA           00712 inc                             incf    one,1
+01B9   19AA           00713                                 btfsc   one,3
+01BA   2???           00714                                 goto    dec_one_pre
+01BB   19A9           00715 con0                    btfsc   ten,3
+MPASM  5.51                   20180907001.ASM   9-15-2018  14:32:47         PAGE 15
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+01BC   2???           00716                                 goto    dec_ten_pre
+01BD   0BAB           00717 con1                    decfsz  num,1
+01BE   2???           00718                                 goto    inc
+01BF   2???           00719                                 goto    temp_con
+                      00720                                 
+01C0   18AA           00721 dec_one_pre             btfsc   one,1
+01C1   2???           00722                                 call    dec_one
+01C2   2???           00723                                 goto    con0
+                      00724 
+01C3   01AA           00725 dec_one                 clrf    one
+01C4   0AA9           00726                                 incf    ten,1
+01C5   2???           00727                                 goto    con0    
+                      00728 
+01C6   18A9           00729 dec_ten_pre             btfsc   ten,1
+01C7   2???           00730                                 call    dec_ten
+01C8   2???           00731                                 goto    con1
+                      00732 
+01C9   01A9           00733 dec_ten                 clrf    ten
+01CA   0AA8           00734                                 incf    hund,1
+01CB   2???           00735                                 goto    con1
+                      00736 
+01CC   00AB           00737 temp_bcd_p              movwf   num
+01CD   01AA           00738                                 clrf    one
+01CE   0B2B           00739                                 decfsz  num,0
+01CF   2???           00740                                 goto    inc2
+01D0   2???           00741                                 goto    temp_conp
+01D1   0AAA           00742 inc2                    incf    one,1
+01D2   19AA           00743                                 btfsc   one,3
+01D3   2???           00744                                 goto    dec_one_pre2
+01D4   0BAB           00745 con2                    decfsz  num,1
+01D5   2???           00746                                 goto    inc2
+01D6   2???           00747                                 goto    temp_conp
+                      00748 
+01D7   18AA           00749 dec_one_pre2    btfsc   one,1
+01D8   01AA           00750                                 clrf    one
+01D9   2???           00751                                 goto    con2
+                      00752 
+01DA   3020           00753 four_space              movlw   CHAR_SPACE
+01DB   2???           00754                                 call    lcd_display
+                      00755 
+01DC   3020           00756                                 movlw   CHAR_SPACE
+01DD   2???           00757                                 call    lcd_display
+                      00758 
+01DE   3020           00759                                 movlw   CHAR_SPACE
+01DF   2???           00760                                 call    lcd_display
+                      00761 
+01E0   3020           00762                                 movlw   CHAR_SPACE
+01E1   2???           00763                                 call    lcd_display
+01E2   0008           00764                                 return
+                      00765 
+                      00766 ;*******************************************Êª¶È´«¸ÐÆ÷¶ÁÈ¡
+01E3                  00767 humd_get                ;clrf   adresh
+                      00768                                 ;clrf   adresl
+MPASM  5.51                   20180907001.ASM   9-15-2018  14:32:47         PAGE 16
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00769                                 
+01E3   1D0B           00770 loop_humd_get   btfss   intcon,t0if
+01E4   2???           00771                                 goto    loop_humd_get
+01E5   110B           00772                                 bcf             intcon,t0if
+01E6   151F           00773                                 bsf             adcon0,go
+01E7   1F0C           00774 loop_humd_wait  btfss   pir1,adif
+01E8   2???           00775                                 goto    loop_humd_wait
+01E9   081E           00776                                 movf    adresh,0
+01EA   081E           00777                                 movf    adresh,0
+01EB   00C7           00778                                 movwf   var_humd_get
+01EC   1683           00779                                 bsf             status,rp0
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+01ED   081E           00780                                 movf    adresl,0
+01EE   1283           00781                                 bcf             status,rp0
+01EF   00C5           00782                                 movwf   var_humd_get2
+01F0   0008           00783                                 return
+                      00784 
+01F1   01A8           00785 nhumd_bcd               clrf    hund
+01F2   3002           00786                                 movlw   0x02
+01F3   00A9           00787                                 movwf   ten
+01F4   01AA           00788                                 clrf    one
+01F5   01AE           00789                                 clrf    point
+01F6   0AC7           00790                                 incf    var_humd_get,1
+01F7   0AAE           00791 inc4                    incf    point,1
+01F8   0AAE           00792                                 incf    point,1
+01F9   19AE           00793                                 btfsc   point,3
+01FA   2???           00794                                 goto    dec_point_pre5
+01FB   19AA           00795 con9                    btfsc   one,3
+01FC   2???           00796                                 goto    dec_one_pre5
+01FD   19A9           00797 con10                   btfsc   ten,3
+01FE   2???           00798                                 goto    dec_ten_pre5
+01FF   0B28           00799 con11                   decfsz  hund,0
+0200   2???           00800                                 goto    con12
+0201   3001           00801                                 movlw   0x01
+0202   00A8           00802                                 movwf   hund
+0203   01A9           00803                                 clrf    ten
+0204   01AA           00804                                 clrf    one
+0205   01AE           00805                                 clrf    point
+0206   2???           00806                                 goto    humd_con
+0207   0BC5           00807 con12                   decfsz  var_humd_get2,1
+0208   2???           00808                                 goto    inc4
+0209   0BC7           00809                                 decfsz  var_humd_get,1
+020A   2???           00810                                 goto    inc4
+020B   2???           00811                                 goto    humd_con
+                      00812                 
+020C   18AE           00813 dec_point_pre5  btfsc   point,1
+020D   2???           00814                                 call    dec_point5
+020E   2???           00815                                 goto    con9
+                      00816 
+020F   01AE           00817 dec_point5              clrf    point
+0210   0AAA           00818                                 incf    one,1
+0211   2???           00819                                 goto    con9
+                      00820 
+MPASM  5.51                   20180907001.ASM   9-15-2018  14:32:47         PAGE 17
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0212   18AE           00821 dec_one_pre5    btfsc   point,1
+0213   2???           00822                                 call    dec_one5
+0214   2???           00823                                 goto    con10
+                      00824 
+0215   01AA           00825 dec_one5                clrf    one
+0216   0AA9           00826                                 incf    ten,1
+0217   2???           00827                                 goto    con10
+                      00828 
+0218   18A9           00829 dec_ten_pre5    btfsc   ten,1
+0219   2???           00830                                 call    dec_ten5
+021A   2???           00831                                 goto    con11
+                      00832 
+021B   01A9           00833 dec_ten5                clrf    ten
+021C   0AA8           00834                                 incf    hund,1
+021D   2???           00835                                 goto    con11
+                      00836                                 
+                      00837                                 end
+MPASM  5.51                   20180907001.ASM   9-15-2018  14:32:47         PAGE 18
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+CAP_C                             0x43
+CAP_E                             0x45
+CAP_L                             0x4C
+CAP_M                             0x4D
+CAP_O                             0x4F
+CAP_W                             0x57
+CHAR_SPACE                        0x20
+NOTE_COLON                        0x3A
+NOTE_EX                           0x21
+NOTE_PER                          0x25
+NOTE_PERIOD                       0x2E
+NUM_EIGHT                         0x38
+NUM_FIVE                          0x35
+NUM_FOUR                          0x34
+NUM_NINE                          0x39
+NUM_ONE                           0x31
+NUM_SEVEN                         0x37
+NUM_SIX                           0x36
+NUM_THREE                         0x33
+NUM_TWO                           0x32
+NUM_ZERO                          0x30
+PCLATH                            0000000A
+__16F877A                         00000001
+adcon0                            0000001F
+adcon1                            0000009F
+adif                              00000006
+adresh                            0000001E
+adresl                            0000009E
+c                                 00000000
+con0                              000001BB
+con1                              000001BD
+con10                             000001FD
+con11                             000001FF
+con12                             00000207
+con2                              000001D4
+con9                              000001FB
+const_line1                       00000080
+const_line2                       00000090
+const_line3                       00000088
+const_line4                       00000098
+convert                           000000F5
+dec_one                           000001C3
+dec_one5                          00000215
+dec_one_pre                       000001C0
+dec_one_pre2                      000001D7
+dec_one_pre5                      00000212
+dec_point5                        0000020F
+dec_point_pre5                    0000020C
+dec_ten                           000001C9
+dec_ten5                          0000021B
+dec_ten_pre                       000001C6
+dec_ten_pre5                      00000218
+delay                             0000010E
+MPASM  5.51                   20180907001.ASM   9-15-2018  14:32:47         PAGE 19
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+delay100                          00000117
+delay1000                         00000122
+delay15us                         0000012D
+delay30us                         00000132
+delay45us                         00000137
+delay500us                        00000141
+delay70us                         0000013C
+delay750us                        0000014A
+ds_read                           00000193
+ds_read_loop                      00000196
+ds_reset                          00000165
+ds_reset_loop                     00000167
+ds_write                          0000017D
+ds_write_loop                     00000183
+four_space                        000001DA
+get_temp                          00000153
+go                                00000002
+humd_con                          000000B3
+humd_get                          000001E3
+hund                              00000028
+inc                               000001B8
+inc2                              000001D1
+inc4                              000001F7
+intcon                            0000000B
+lcd_display                       00000108
+lcd_enable                        00000101
+loop0                             00000110
+loop1                             00000112
+loop2                             0000012F
+loop3                             0000013E
+loop4                             00000143
+loop5                             0000014C
+loop6                             0000014E
+loop7                             00000134
+loop8                             00000139
+loop9                             00000145
+loop_humd_get                     000001E3
+loop_humd_wait                    000001E7
+main                              00000000
+nhumd_bcd                         000001F1
+num                               0000002B
+one                               0000002A
+option_reg                        00000081
+pcl                               00000002
+pir1                              0000000C
+point                             0000002E
+porta                             00000005
+portb                             00000006
+portc                             00000007
+portd                             00000008
+porte                             00000009
+rp0                               00000005
+start                             00000052
+MPASM  5.51                   20180907001.ASM   9-15-2018  14:32:47         PAGE 20
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+status                            00000003
+t0if                              00000002
+table                             000000F6
+temp_bcd                          000001B1
+temp_bcd_p                        000001CC
+temp_con                          0000006A
+temp_conp                         00000086
+ten                               00000029
+tmr0                              00000001
+trisa                             00000085
+trisb                             00000086
+trisc                             00000087
+trisd                             00000088
+trise                             00000089
+var_delay1                        00000020
+var_delay2                        00000021
+var_display                       00000035
+var_display_i                     00000036
+var_ds_bit                        00000034
+var_ds_i                          00000031
+var_ds_read                       00000032
+var_ds_write                      00000030
+var_humd                          00000044
+var_humd_get                      00000047
+var_humd_get2                     00000045
+var_humd_hund                     00000041
+var_humd_one                      00000043
+var_humd_p                        00000046
+var_humd_ten                      00000042
+var_temp                          00000027
+var_temp_hs                       00000025
+var_temp_hund                     0000002C
+var_temp_ls                       00000026
+var_temp_one                      00000023
+var_temp_p                        00000024
+var_temp_ten                      00000022
+var_us                            00000033
+var_us2                           00000050
+write_0                           0000018D
+write_1                           0000018E
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :    15 reported,     0 suppressed
+
+

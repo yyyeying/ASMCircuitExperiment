@@ -1,0 +1,21 @@
+	
+	
+	call	down
+	movlw	b'00000001'
+	movwf	portd                   
+	call    down	
+	movlw	b'00001000'	; 退格 close display
+	movwf	portd
+	call	down
+	movlw	b'00000110'	;确认回应 clear screen
+	movwf	portd
+	call 	down
+ 	movlw	b'00001100'	;换页键 clear screen
+ 	movwf	portd
+ 	call 	down
+	bcf porte,0
+	movlw	b'00000001'
+	movwf	portd	
+	call down
+	movlw	b'00000001'
+	movwf	porte

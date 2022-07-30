@@ -1,0 +1,16 @@
+___awdiv: CODE, 1946 0 69
+_scan: CODE, 1474 0 76
+_delay: CODE, 1550 0 26
+_lcd_display: CODE, 1404 0 37
+_main: CODE, 1244 0 160
+_pm_trans: CODE, 1688 0 92
+_temp_trans: CODE, 1604 0 84
+_humd_trans: CODE, 1780 0 92
+_port_init: CODE, 1147 0 10
+_lcd_enable: CODE, 1595 0 9
+_trans_to_ASCII: CODE, 1897 0 49
+_lcd_writedata: CODE, 1441 0 22
+_lcd_writebyte: CODE, 1463 0 11
+___wmul: CODE, 1872 0 25
+_lcd_init: CODE, 1576 0 19
+Total: 781

@@ -1,0 +1,41 @@
+MPLINK 4.49, Linker
+Linker Map File - Created Tue Sep 04 18:40:20 2018
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000002
+                   .org_1       code   0x000005    program   0x000032
+                   .cinit    romdata   0x001800    program   0x000004
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000000      
+                            0x000005    0x00001d      
+                            0x001800    0x001801      
+            28 out of 8454 program addresses used, program memory utilization is 0%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                  convert   0x00000d    program     static C:\myFiles\CircuitExperiment\20180904002\20180904002.asm
+                     main   0x000005    program     static C:\myFiles\CircuitExperiment\20180904002\20180904002.asm
+                     stop   0x00000c    program     static C:\myFiles\CircuitExperiment\20180904002\20180904002.asm
+                    table   0x00000e    program     static C:\myFiles\CircuitExperiment\20180904002\20180904002.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                     main   0x000005    program     static C:\myFiles\CircuitExperiment\20180904002\20180904002.asm
+                     stop   0x00000c    program     static C:\myFiles\CircuitExperiment\20180904002\20180904002.asm
+                  convert   0x00000d    program     static C:\myFiles\CircuitExperiment\20180904002\20180904002.asm
+                    table   0x00000e    program     static C:\myFiles\CircuitExperiment\20180904002\20180904002.asm
+
+

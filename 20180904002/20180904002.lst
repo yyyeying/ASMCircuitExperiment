@@ -1,0 +1,68 @@
+MPASM  5.51                   20180904002.ASM   9-4-2018  18:40:19         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+  00000002            00001 pcl             equ             02h
+  00000003            00002 status  equ             03h
+  00000005            00003 rp0             equ             05h
+  00000007            00004 rc              equ             07h
+  00000087            00005 trisc   equ             87h
+                      00006 
+                      00007                 org             0000h
+0000   2???           00008                 goto    main
+                      00009                 org             0005h   
+0005   1683           00010 main    bsf             status, rp0
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0006   0187           00011                 clrf    trisc
+0007   1283           00012                 bcf             status, rp0
+0008   0820           00013                 movf    20h, 0
+0009   390F           00014                 andlw   0fh
+000A   2???           00015                 call    convert
+000B   0087           00016                 movwf   rc
+000C   2???           00017 stop    goto    stop
+                      00018 
+000D                  00019 convert 
+000D   0782           00020                 addwf   pcl, 1
+000E   343F           00021 table   retlw   3fh             ;0
+000F   3406           00022                 retlw   06h             ;1
+0010   345B           00023                 retlw   5bh             ;2
+0011   344F           00024                 retlw   4fh             ;3
+0012   3466           00025                 retlw   66h             ;4
+0013   346D           00026                 retlw   6dh             ;5
+0014   347D           00027                 retlw   7dh             ;6
+0015   3407           00028                 retlw   07h             ;7
+0016   347F           00029                 retlw   7fh             ;8
+0017   346F           00030                 retlw   6fh             ;9
+0018   3477           00031                 retlw   77h             ;A
+0019   347C           00032                 retlw   7ch             ;B
+001A   3439           00033                 retlw   39h             ;C
+001B   345E           00034                 retlw   5eh             ;D
+001C   3479           00035                 retlw   79h             ;E
+001D   3471           00036                 retlw   71h             ;F
+                      00037                 end
+MPASM  5.51                   20180904002.ASM   9-4-2018  18:40:19         PAGE  2
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+__16F877A                         00000001
+__DEBUG                           1
+__MPLAB_DEBUGGER_PK3              1
+convert                           0000000D
+main                              00000005
+pcl                               00000002
+rc                                00000007
+rp0                               00000005
+status                            00000003
+stop                              0000000C
+table                             0000000E
+trisc                             00000087
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :     1 reported,     0 suppressed
+
+

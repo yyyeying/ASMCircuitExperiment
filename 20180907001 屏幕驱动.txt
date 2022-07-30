@@ -1,0 +1,479 @@
+tmr0			equ		0x01				;TMR0
+pcl				equ		0x02	
+status			equ		0x03				;状态寄存器
+option_reg 		equ		0x81				;选项寄存器
+intcon			equ		0x0b				;中断控制寄存器
+rp0				equ		0x05				;状态寄存器中的页选位RP0
+portb			equ		0x06				;RS-RB0 RW-RB1 E-RB2
+trisb			equ		0x86		
+portd			equ		0x08				;LCD
+trisd			equ 	0x88	
+adcon1			equ		0x9f	
+C				equ		0x02
+
+var_delay1		equ		0x20				;延时变量1
+var_delay2		equ		0x21				;延时变量2
+var_temp_ten	equ		0x22
+var_temp_one	equ		0x23
+var_temp_p		equ		0x24
+var_temp_hs		equ		0x25
+var_temp_ls		equ		0x26
+var_temp		equ		0x27
+
+hund			equ		0x28
+ten				equ		0x29
+one				equ		0x2a
+num				equ		0x2b
+amark			equ		0x2c
+
+#define CHAR_SPACE     0x20
+
+#define NUM_ZERO    	0x30
+#define NUM_ONE     	0x31
+#define NUM_TWO     	0x32
+#define NUM_THREE   	0x33
+#define NUM_FOUR    	0x34
+#define NUM_FIVE    	0x35
+#define NUM_SIX     	0x36
+#define NUM_SEVEN   	0x37
+#define NUM_EIGHT   	0x38
+#define NUM_NINE    	0x39
+
+#define NOTE_COLON  	0x3A        		;冒号
+#define NOTE_PERIOD 	0x2E       			;句号
+#define NOTE_EX     	0x21        		;感叹号
+#define NOTE_PER		0x25				;百分号
+
+#define CAP_C       	0x43
+#define CAP_E       	0x45
+#define CAP_L       	0x4C
+#define CAP_M       	0x4D
+#define CAP_O       	0x4F
+#define CAP_W       	0x57
+
+const_line1		equ		0x80				;LCD各行地址
+const_line2		equ		0x90
+const_line3		equ		0x88
+const_line4		equ		0x98
+
+const_delay1	equ		0x0c				;延时常数1
+const_delay2	equ		0x98				;延时常数2
+
+				org		0000h
+main	
+				nop
+;******************************************端口输入输出设置
+				bsf	 	status,rp0 			;设置文件寄存器的体1
+				movlw	0x00			
+				movwf	trisb				;端口B 输出		
+				movlw  	0x00
+				movwf 	trisd				;端口D 输出
+				movlw	0x07		
+				movwf	adcon1				;设置为数字口
+				movlw	0x03
+				movwf	option_reg			;分频比设为"1:16"
+				bcf	 	status,rp0			;恢复到文件寄存器的体0
+			
+;********************************************LCD初始化
+				movlw	0x00
+				movwf	portb
+					
+				movlw	0x01				;清除显示
+				call	lcd_display
+
+				movlw	0x38				;8位2行5*7点阵
+				call	lcd_display
+
+				movlw	0x06				;文字不动，光标右移
+				call	lcd_display
+
+				movlw	0x0c					
+				call	lcd_display
+				
+				movlw	0x01
+				call	lcd_display
+
+;********************************************LCD显示数据
+				call	lcd_enable			;选行
+				movlw	const_line2
+				call	lcd_display
+
+				movlw	0x01				;数据输出模式
+				movwf	portb
+
+				movlw	CHAR_SPACE
+				call	lcd_display
+
+				movlw	CHAR_SPACE
+				call	lcd_display
+
+				movlw	CHAR_SPACE
+				call	lcd_display
+
+				movlw	CHAR_SPACE
+				call	lcd_display
+
+				movlw	0xbb			;欢
+				call	lcd_display
+				
+				movlw	0xb6
+				call	lcd_display
+
+				movlw	0xd3			;迎
+				call	lcd_display
+
+				movlw	0xad			
+				call	lcd_display
+
+				movlw	0xca			;使
+				call	lcd_display
+
+				movlw	0xb9			
+				call	lcd_display
+
+				movlw	0xd3			;用
+				call	lcd_display
+
+				movlw	0xc3
+				call	lcd_display
+
+				call	lcd_enable		;选行
+				movlw	const_line3
+				call	lcd_display
+
+				movlw	0x01			;数据输出模式
+				movwf	portb
+
+				movlw	CHAR_SPACE
+				call	lcd_display
+
+				movlw	CHAR_SPACE
+				call	lcd_display
+
+				movlw	CHAR_SPACE
+				call	lcd_display
+
+				movlw	CHAR_SPACE
+				call	lcd_display
+
+				movlw	CAP_W
+				call	lcd_display
+
+				movlw	CAP_E
+				call	lcd_display
+
+				movlw	CAP_L
+				call	lcd_display
+
+				movlw	CAP_C
+				call	lcd_display
+
+				movlw	CAP_O
+				call	lcd_display
+
+				movlw	CAP_M
+				call	lcd_display
+
+				movlw	CAP_E
+				call	lcd_display
+
+				movlw	NOTE_EX
+				call	lcd_display
+
+				call	lcd_enable	
+				movlw	const_line4
+				call	lcd_display
+
+				movlw	NUM_ZERO
+				call	lcd_display
+
+				call	delay1000
+				call	delay1000
+				call	delay1000
+
+				call	lcd_enable		
+				movlw	0x01			;清除显示
+				call	lcd_display
+
+start			movlw	b'00000100'		;测试 25.0625
+				movwf	var_temp_hs
+
+				movlw	b'11010000'
+				movwf	var_temp_ls
+
+				movf	var_temp_ls,0
+				movwf	var_temp
+				rrf		var_temp,1		;右移4位
+				rrf		var_temp,1
+				rrf		var_temp,1
+				rrf		var_temp,1
+				bcf		var_temp,4
+				bcf		var_temp,5
+				bcf		var_temp,6
+				bcf		var_temp,7
+				rlf		var_temp_hs,1
+				rlf		var_temp_hs,1
+				rlf		var_temp_hs,1
+				rlf		var_temp_hs,1
+				bcf		var_temp_hs,3
+				bcf		var_temp_hs,2
+				bcf		var_temp_hs,1
+				bcf		var_temp_hs,0
+				movf	var_temp_hs,0
+				addwf	var_temp,1
+				movf	var_temp,0
+				call	temp_bcd
+temp_con		movf	ten,0
+				movwf	var_temp_ten
+				movf	one,0
+				movwf	var_temp_one
+				
+				nop
+					
+				call	lcd_enable	
+				movlw	const_line1
+				call	lcd_display
+
+				call	delay
+
+				movlw	0x01			;数据输出模式
+				movwf	portb
+
+				movlw	0xce			;温
+				call	lcd_display
+
+				movlw	0xc2			
+				call	lcd_display
+
+				movlw	0xb6			;度
+				call	lcd_display
+				
+				movlw	0xc8
+				call	lcd_display
+
+				movlw	NOTE_COLON
+				call	lcd_display
+
+				movlw	CHAR_SPACE
+				call	lcd_display
+
+				movf	var_temp_ten,0
+				call	convert
+				call	lcd_display
+				
+				movf	var_temp_one,0
+				call	convert
+				call	lcd_display
+
+				movlw	NOTE_PERIOD
+				call	lcd_display
+
+				movlw	NUM_ZERO
+				call	lcd_display
+
+				movlw	0xa1
+				call	lcd_display
+
+				movlw	0xe6
+				call	lcd_display
+
+				call	lcd_enable		;选行
+				movlw	const_line2
+				call	lcd_display
+
+				movlw	0x01			;数据输出模式
+				movwf	portb
+
+				movlw	0xca			;湿
+				call	lcd_display
+
+				movlw	0xaa
+				call	lcd_display
+
+				movlw	0xb6			;度
+				call	lcd_display
+
+				movlw	0xc8
+				call	lcd_display
+
+				movlw	NOTE_COLON
+				call	lcd_display
+
+				movlw	CHAR_SPACE
+				call	lcd_display
+
+				movlw	NUM_ZERO
+				call	lcd_display
+
+				movlw	NUM_ZERO
+				call	lcd_display
+
+				movlw	NUM_ZERO
+				call	lcd_display
+
+				movlw	NOTE_PERIOD
+				call	lcd_display
+
+				movlw	NUM_ZERO
+				call	lcd_display
+
+				movlw	NOTE_PER
+				call	lcd_display
+
+				call	lcd_enable		;选行
+				movlw	const_line4
+				call	lcd_display
+
+
+
+				movlw	0x01			;数据输出模式
+				movwf	portb
+
+				movlw	0xce			;温
+				call	lcd_display
+
+				movlw	0xc2			
+				call	lcd_display
+
+				movlw	0xb6			;度
+				call	lcd_display
+				
+				movlw	0xc8
+				call	lcd_display
+
+				movlw	0xbc			;计
+				call	lcd_display
+				
+				movlw	0xc6
+				call	lcd_display
+
+				movlw	CHAR_SPACE
+				call	lcd_display
+
+				movlw	CHAR_SPACE
+				call	lcd_display
+
+	
+				goto	start
+
+
+;******************************************子程序列表
+convert			addwf	pcl,1
+table			retlw	NUM_ZERO
+				retlw	NUM_ONE
+				retlw	NUM_TWO
+				retlw	NUM_THREE
+				retlw	NUM_FOUR
+				retlw	NUM_FIVE
+				retlw	NUM_SIX
+				retlw	NUM_SEVEN
+				retlw	NUM_EIGHT
+				retlw	NUM_NINE
+				return
+			
+;********************************************LCD使能端控制
+lcd_enable		movlw	00h
+				movwf	portb				;E=0, RW=0, RS=0
+				call	delay
+				movlw	40h
+				movwf	portb				;E=1, RW=0, RS=0
+				call	delay
+				return
+
+lcd_display		movwf	portd
+				bsf		portb,2				;E=0, RW=0, RS=1
+				call	delay
+				bcf		portb,2				;E=1, RW=0, RS=1
+				call	delay
+				return
+			
+;********************************************10ms延时
+delay			movlw	const_delay1
+				movwf	var_delay1
+loop0			movlw	const_delay2
+				movwf	var_delay2
+loop1			decfsz	var_delay2, 1
+				goto	loop1
+				decfsz	var_delay1, 1
+				goto	loop0
+				return
+
+;*******************************************100ms延时
+delay100		call	delay
+				call	delay
+				call	delay
+				call	delay
+				call	delay
+				call	delay
+				call	delay
+				call	delay
+				call	delay
+				call	delay
+				return
+
+;*****************************************+1s
+delay1000		call	delay100
+				call	delay100
+				call	delay100
+				call	delay100
+				call	delay100
+				call	delay100
+				call	delay100
+				call	delay100
+				call	delay100
+				call	delay100
+				return
+
+;*****************************************将获得的数据转换为LCD应该显示的数字
+
+
+temp_bcd		movwf	num
+				clrf	hund
+				clrf	ten
+				clrf	one
+				clrf	amark
+dec				decf	num,1
+				incf	one,1
+				btfsc	one,3
+				goto	dec_one_pre
+con0			btfsc	ten,3
+				goto	dec_ten_pre
+con1			btfss	num,0
+				goto	jump0
+				goto	dec
+jump0			btfsc	num,1
+				goto 	dec
+				btfsc	num,2
+				goto 	dec
+				btfsc	num,3
+				goto 	dec
+				btfsc	num,4
+				goto 	dec
+				btfsc	num,5
+				goto 	dec
+				btfsc	num,6
+				goto 	dec
+				btfss	num,7
+				goto	temp_con
+				goto	dec
+
+dec_one_pre		btfsc	one,1
+				call	dec_one
+				goto	con0
+
+dec_one			clrf	one
+				incf	ten,1
+				goto	con0	
+
+dec_ten_pre		btfsc	ten,1
+				call	dec_ten
+				goto	con1
+
+dec_ten			clrf	ten
+				incf	hund,1
+				goto	con1
+
+				end
+			
+			
+			

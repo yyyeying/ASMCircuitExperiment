@@ -1,0 +1,124 @@
+MPASM  5.51                     PAOMADENG.ASM   9-4-2018  18:53:55         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 ;************
+                      00002 ;闪烁跑马灯
+                      00003 ;************
+  00000001            00004 tmr0            equ             01h                     ;计数器0
+  00000002            00005 pcl                     equ             02h                     ;计数器低字节寄存器
+  00000003            00006 status          equ             03h                     ;状态寄存器
+  00000081            00007 option_reg      equ     81h                     ;选项寄存器
+  0000000B            00008 intcon          equ     0bh                     ;中断控制寄存器
+  00000007            00009 portc           equ     07h                     ;端口C数据寄存器
+  00000087            00010 trisc           equ     87h                     ;端口C方向控制寄存器
+  00000000            00011 tmr0_b          equ     0                       ;TMR0寄存器初始值
+  00000020            00012 dly1            equ     20h                     ;延时变量1
+  00000021            00013 dly2            equ     21h                     ;延时变量2
+  00000000            00014 w                       equ     0                       ;定义W的指示位
+  00000001            00015 f                       equ     1                       ;定义RAM的指示位
+  00000005            00016 rp0                     equ     5                       ;定义页选位（STATUS的第五位）
+  00000002            00017 t0if            equ     2                       ;TMR0的中断标志位
+  0000007F            00018 w_temp          equ     7fh                     ;在体0上定义临时备份寄存器
+  00000023            00019 portc_b         equ     23h                     ;显示缓冲区计时器，真正控制哪个灯亮的
+  00000024            00020 flag            equ     24h                     ;亮灭标志位（只使用该地址的最后一位）
+                      00021 ;********************************复位向量****************************
+                      00022                         org             000h            ;定义程序存放区域的起始地址
+0000   0000           00023                         nop                                     ;设置一条ICD必须的空操作
+0001   2???           00024                         goto    main    
+                      00025 ;********************************中断向量和中断服务子程序************
+                      00026                         org     004h            ;中断向量
+0004                  00027 tmr0serv                                                ;中断服务程序
+0004   00FF           00028                         movwf   w_temp          ;复制W到他的备份寄存器w_temp中
+0005   110B           00029                         bcf     intcon,t0if     ;清除intcon中的第t0if（2）位，清除TMR0溢出中断标志位
+0006   0AA4           00030                         incf    flag,f          ;flag内容+1，即亮灭标志位反转
+0007   1C24           00031                         btfss   flag,0          ;若flag的第0位为1，则跳一步
+0008   2???           00032                         goto    jump0           ;前往点亮子程序
+0009   0187           00033                         clrf    portc           ;portc清零，则全部熄灭
+000A   2???           00034                         goto    jump1           ;前往jump1
+000B   0823           00035 jump0           movf    portc_b, w      ;将缓冲区内容传至W
+000C   0087           00036                         movwf   portc           ;将W内容送至portc
+000D   3000           00037 jump1           movlw   tmr0_b          ;将寄存器初始值（0）送至W
+000E   0081           00038                         movwf   tmr0            ;将W内容送至TMR0
+000F   087F           00039                         movf    w_temp, w       ;将备份寄存器中的内容恢复
+0010   0009           00040                         retfie                          ;中断服务程序返回
+                      00041 ;********************************主程序*****************************
+0011                  00042 main
+0011   1683           00043                         bsf             status,rp0      ;STATUS的第五位（RP0体选位）置1
+0012   3000           00044                         movlw   0
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0013   0087           00045                         movwf   trisc           ;方向控制码0送入trisc
+0014   3007           00046                         movlw   07h                     
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0015   0081           00047                         movwf   option_reg      ;07h给option_reg
+0016   1283           00048                         bcf             status, rp0     ;STATUS的第五位（RP0体选位）置0
+0017   30A0           00049                         movlw   0a0h            
+0018   008B           00050                         movwf   intcon          ;0A0H给intcon
+0019   110B           00051                         bcf             intcon,t0if     ;intcon的第t0if（2）位置0
+MPASM  5.51                     PAOMADENG.ASM   9-4-2018  18:53:55         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+001A   3000           00052                         movlw   tmr0_b
+001B   0081           00053                         movwf   tmr0            ;TMR0赋初值
+001C   3080           00054                         movlw   b'10000000'     
+001D   00A3           00055                         movwf   portc_b         ;缓冲器寄存器赋值
+001E   2???           00056 loop            call    delay           
+001F   0CA3           00057                         rrf             portc_b, f      ;带进位标志右移portc_b
+0020   2???           00058                         goto    loop
+                      00059 
+0021                  00060 delay
+0021   30FF           00061                         movlw   0ffh
+0022   00A0           00062                         movwf   dly1            ;外循环dly1赋值255
+0023   30FF           00063 lp0                     movlw   0ffh            
+0024   00A1           00064                         movwf   dly2            ;内循环dly2赋值255
+0025   0BA1           00065 lp1                     decfsz  dly2, f
+0026   2???           00066                         goto    lp1
+0027   0BA0           00067                         decfsz  dly1, f
+0028   2???           00068                         goto    lp0
+0029   0008           00069                         return
+                      00070                         end
+MPASM  5.51                     PAOMADENG.ASM   9-4-2018  18:53:55         PAGE  3
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+__16F877A                         00000001
+__DEBUG                           1
+__MPLAB_DEBUGGER_PK3              1
+delay                             00000021
+dly1                              00000020
+dly2                              00000021
+f                                 00000001
+flag                              00000024
+intcon                            0000000B
+jump0                             0000000B
+jump1                             0000000D
+loop                              0000001E
+lp0                               00000023
+lp1                               00000025
+main                              00000011
+option_reg                        00000081
+pcl                               00000002
+portc                             00000007
+portc_b                           00000023
+rp0                               00000005
+status                            00000003
+t0if                              00000002
+tmr0                              00000001
+tmr0_b                            00000000
+tmr0serv                          00000004
+trisc                             00000087
+w                                 00000000
+w_temp                            0000007F
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :     2 reported,     0 suppressed
+
+

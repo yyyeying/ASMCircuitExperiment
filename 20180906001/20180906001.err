@@ -1,0 +1,33 @@
+*** Error 27 "C:\myFiles\CircuitExperiment\20180906001\pic.h" Line 7(149,150): Expression must evaluate to a constant
+*** Error 128 "C:\myFiles\CircuitExperiment\20180906001\pic.h" Line 8(154,155): A #DEVICE required before this line
+*** "C:\myFiles\CircuitExperiment\20180906001\pic.h" Line 8: Error #29: Function definition different from previous definition
+*** "C:\myFiles\CircuitExperiment\20180906001\pic.h" Line 8: Error #43: Expecting a declaration
+*** "C:\myFiles\CircuitExperiment\20180906001\pic.h" Line 8: Error #48: Expecting a (
+*** "C:\myFiles\CircuitExperiment\20180906001\pic.h" Line 8: Error #43: Expecting a declaration
+*** "C:\myFiles\CircuitExperiment\20180906001\pic.h" Line 9: Error #29: Function definition different from previous definition
+*** "C:\myFiles\CircuitExperiment\20180906001\pic.h" Line 9: Error #43: Expecting a declaration
+*** "C:\myFiles\CircuitExperiment\20180906001\pic.h" Line 9: Error #48: Expecting a (
+*** "C:\myFiles\CircuitExperiment\20180906001\pic.h" Line 9: Error #43: Expecting a declaration
+*** "C:\myFiles\CircuitExperiment\20180906001\pic.h" Line 9: Error #29: Function definition different from previous definition
+*** "C:\myFiles\CircuitExperiment\20180906001\pic.h" Line 9: Error #43: Expecting a declaration
+*** "C:\myFiles\CircuitExperiment\20180906001\pic.h" Line 9: Error #48: Expecting a (
+*** "C:\myFiles\CircuitExperiment\20180906001\pic.h" Line 9: Error #43: Expecting a declaration
+*** "C:\myFiles\CircuitExperiment\20180906001\pic.h" Line 10: Error #29: Function definition different from previous definition
+*** "C:\myFiles\CircuitExperiment\20180906001\pic.h" Line 10: Error #43: Expecting a declaration
+*** "C:\myFiles\CircuitExperiment\20180906001\pic.h" Line 10: Error #48: Expecting a (
+*** "C:\myFiles\CircuitExperiment\20180906001\pic.h" Line 11: Error #18: File can not be opened
+    Not in "C:\PROGRA~2\PICC\devices\pic165x.h"
+    Not in "C:\PROGRA~2\PICC\drivers\pic165x.h"
+    Not in local "C:\myFiles\CircuitExperiment\20180906001\pic165x.h"
+*** "C:\myFiles\CircuitExperiment\20180906001\pic.h" Line 37: Error #27: Expression must evaluate to a constant
+*** "C:\myFiles\CircuitExperiment\20180906001\pic.h" Line 38: Error #29: Function definition different from previous definition
+*** "C:\myFiles\CircuitExperiment\20180906001\pic.h" Line 38: Error #43: Expecting a declaration
+*** "C:\myFiles\CircuitExperiment\20180906001\pic.h" Line 38: Error #48: Expecting a (
+*** "C:\myFiles\CircuitExperiment\20180906001\pic.h" Line 39: Error #18: File can not be opened
+    Not in "C:\PROGRA~2\PICC\devices\pic166xx.h"
+    Not in "C:\PROGRA~2\PICC\drivers\pic166xx.h"
+    Not in local "C:\myFiles\CircuitExperiment\20180906001\pic166xx.h"
+*** "C:\myFiles\CircuitExperiment\20180906001\pic.h" Line 40: Error #21: #ENDIF with no corresponding #IF
+*** "C:\myFiles\CircuitExperiment\20180906001\pic.h" Line 91: Error #21: #ENDIF with no corresponding #IF
+*** "C:\myFiles\CircuitExperiment\20180906001\20180906001.c" Line 4: Error #12: Undefined identifier   TRISD
+*** "C:\myFiles\CircuitExperiment\20180906001\20180906001.c" Line 5: Error #12: Undefined identifier   PORTD

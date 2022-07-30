@@ -1,0 +1,37 @@
+CCS PCM C Compiler, Version 3.187, 16465
+
+               Filename: 20180905003.LST
+
+               ROM used: 15 (0%)
+                         Largest free fragment is 2048
+               RAM used: 6 (3%) at main() level
+                         6 (3%) worst case
+               Stack:    0 locations
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   004
+0003:  NOP
+....................  #include<16F877A.h> 
+....................  //////// Standard Header file for the PIC16F877A device ////////////////  
+.................... #device PIC16F877A  
+.................... #list  
+....................  
+....................   
+.................... void main()  
+.................... {  
+0004:  CLRF   04
+0005:  MOVLW  1F
+0006:  ANDWF  03,F
+0007:  MOVLW  06
+0008:  BSF    03.5
+0009:  MOVWF  1F
+000A:  MOVLW  07
+000B:  BCF    03.5
+000C:  MOVWF  1F
+.................... 	int a=0;  
+000D:  CLRF   21
+.................... 	  
+.................... } 
+000E:  SLEEP
